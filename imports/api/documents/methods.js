@@ -1,3 +1,6 @@
+import { Mongo } from 'meteor/mongo';
+import faker from 'faker';
+
 import { Documents } from './documents';
 
 export const insertDocument = new ValidatedMethod({

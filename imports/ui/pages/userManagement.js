@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col,Nav,NavItem, } from 'react-bootstrap';
 //import DocumentsList from '../containers/documents-list.js';
 //import { AddDocument } from '../components/add-document.js';
 import { InviteUser } from '../components/invite-user.js';
@@ -17,3 +17,5 @@ export const UserManagement = () => (
     </Col>
   </Row>
 );
+
+
