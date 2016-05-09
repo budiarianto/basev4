@@ -15,7 +15,8 @@ City.deny({
   remove: () => true
 });
 
-let CitySchema = new SimpleSchema({
+
+CitySchema = new SimpleSchema({ /* pengganti => let CitySchema = new SimpleSchema({*/
   "country"    : {
 	    type    : String,
 	    label   : "Country Name",

@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 //import { AddDocument } from '../components/add-document.js';
 import { SearchSettlement } from '../components/search-Settlement';
 
-export const Settlement = () => (
+export const SettlementList = () => (
   <Row>
     <Col xs={ 12 }>
       <h4 className="page-header">Settlement</h4>

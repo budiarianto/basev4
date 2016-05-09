@@ -50,11 +50,21 @@ export const SearchCity =React.createClass({
 				      </button>
 				      <a className="navbar-brand text-din visible-xs">City List</a>
 				    </div>
-				    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+				    <div id="navbar-collapse-form" className="collapse navbar-collapse">
 				    	<ul className="nav navbar-nav">
-				    		<LinkContainer to="/city">
+				    		<LinkContainer to="/addCity">
           						<NavItem eventKey={ 1 } href="/city">Add New</NavItem>
         					</LinkContainer>
+        					<li>
+				    			<a id="repairIndex" className="btn-loading">
+				    			<span><span className="glyphicon glyphicon-sort-by-attributes"></span> Repair Index</span>
+				    			<div className="spinner">
+						         <div className="bounce1"></div>
+						         <div className="bounce2"></div>
+						         <div className="bounce3"></div>
+						        </div>
+				    			</a>
+				    		</li>
 				    		<li>
 								<form name="searchForm" className="navbar-form navbar-left" >
 							        	<div className="form-inline">

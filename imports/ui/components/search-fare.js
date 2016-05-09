@@ -52,8 +52,8 @@ export const SearchFare =React.createClass({
             </div>
             <div id="navbar-collapse-form" class="collapse navbar-collapse">
               <ul className="nav navbar-nav">
-                <LinkContainer to="/city">
-                      <NavItem eventKey={ 1 } href="/city">Add New</NavItem>
+                <LinkContainer to="/addFare">
+                      <NavItem eventKey={ 1 } href="/addFare">Add New</NavItem>
                   </LinkContainer>
                 <li>
                 <form name="searchForm" className="navbar-form navbar-left" >

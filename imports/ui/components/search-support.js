@@ -52,7 +52,7 @@ import { NavItem } from 'react-bootstrap';
               </div>
               <div id="navbar-collapse-form" class="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
-                  <LinkContainer to="/addSupport">
+                    <LinkContainer to="/addSupport">
                         <NavItem eventKey={ 1 } href="/addSupport">Add New</NavItem>
                     </LinkContainer>
                   <li>

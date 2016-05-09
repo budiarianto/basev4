@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Mongo } from 'meteor/mongo';
 import faker from 'faker';
 
 export const Collection = new Meteor.Collection( 'collection' );

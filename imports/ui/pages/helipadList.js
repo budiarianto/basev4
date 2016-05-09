@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 //import { AddDocument } from '../components/add-document.js';
 import { SearchHelipad } from '../components/search-helipad.js';
 
-export const HelipadList = () => (
+export const Helipad = () => (
   <Row>
     <Col xs={ 12 }>
       <h4 className="page-header text-thin text-din hidden-xs">Helipad List</h4>
