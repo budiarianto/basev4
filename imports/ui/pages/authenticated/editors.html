@@ -1,0 +1,30 @@
+<template name="editors">
+	{{#if Template.subscriptionsReady}}
+		<div class="editors gap-bottom">
+			<div class="row">
+				<div class="col-sm-7 gap-bottom-small">
+			 	{{#if saving}}
+			      <span class="save-state">Document Status : <i class="fa fa-frefresh fa-spin"></i> Saving ...</span>
+			    {{else}}
+			      <span class="save-state text-success">Document Status : <i class="fa fa-check"></i> Saved!</span>
+			    {{/if}}
+			    </div>
+			    <div class="col-sm-7 editor-container">
+					<div class="editable editDescriptions">
+						Put Descriptions Here					
+					</div>
+				</div>
+				<div class="col-sm-5 editor-container">
+					<div class="editable editDetails">
+						Put Details Here						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<a href="/event/{{event._id}}" type="btn" class="btn btn-success"><span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Save and Close</a>
+		</div>
+	{{else}}
+	&nbsp;&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>

@@ -1,0 +1,43 @@
+<template name="city">
+	{{#if Template.subscriptionsReady}}
+		<form id="cityForm" class="form-group">
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<h3 class="text-thin text-din">{{judul}}</h3>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="sequence">Sequence Number</label>
+								<input type="number" class="form-control" placeholder="Sequence number" min="0" id="sequence" name="sequence">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="city">City</label>
+								<input type="text" class="form-control" placeholder="City name" id="city" name="city">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="country">Country</label>
+								<input type="text" class="form-control" placeholder="Country name" id="country" name="country">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input type="button" class="btn btn-danger" id="cancel" value="Cancel">
+								<input type="submit" class="btn btn-primary" value="Save">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+		</form>
+		{{else}}
+			{{> loading}}
+		{{/if}}
+</template>

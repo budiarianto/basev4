@@ -1,0 +1,177 @@
+<template name="fare">
+<!-- 	{{#if Template.subscriptionsReady}} -->
+<!-- 		{{#with fare}} -->
+		<form id="fareForm" class="form-group">
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<h3 class="text-thin text-din">{{judul}}</h3>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareName">Fare Name</label>
+								<input type="text" class="form-control" placeholder="Fare Name" id="fareName" maxlength="150" name="fareName" value="{{name}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareStartTime">Air Time</label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select start time" name="fareStartTime" id="fareStartTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='fareStartTime'>
+										<input type='text' placeholder="HH:MM"  class="form-control" name='fareStartTime' value="{{dt.startTime}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareName">Price</label>
+								<input type="number" class="form-control" placeholder="Price" id="price" min="0" maxlength="150" name="price" value="{{price}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for=departureCity>Departure City</label>
+								<select  class="form-control" name="departureCity" id="departureCity">
+									<option value="undefined">Please select city</option>
+									{{#each cities}}
+									<option value="{{city}}">{{city}}</option>
+									{{/each}}
+								</select>
+							</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="departureCollapse">
+								<div class="form-group well">
+									<label for="departureLocation">Departure Location</label>
+									{{#if departureLocation}}
+									<select  class="form-control" name="departureLocation" id="departureLocation">
+										<option value="undefined">Please select location</option>
+										{{#each departureLocation}}
+										<option value="{{_id}}">{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="departureLocation-not-found" class="error" for="departureLocation">departure location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<div class="form-group">
+									<label for=destinationCity>Destination City</label>
+									<select  class="form-control" name="destinationCity" id="destinationCity">
+										{{#if cities}}
+											<option value="undefined">Please select city</option>
+											{{#each cities}}
+											<option value="{{city}}" {{currentCity}}>{{city}}</option>
+											{{/each}}
+										{{else}}
+											<option value="undefined">Departure city not registered</option>
+										{{/if}}
+									</select>
+								</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="destinationCollapse">
+								<div class="form-group well">
+									<label for=destinationLocation>Destination Location</label>
+									{{#if destinationLocation}}
+									<select  class="form-control" name="destinationLocation" id="destinationLocation">
+										<option value="undefined">Please select location</option>
+										{{#each destinationLocation}}
+										<option value="{{_id}}">{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="destinationLocation-not-found" class="error" for="destinationLocation">destination location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<div>
+								<label for="active">Status &nbsp;&nbsp;</label>
+								</div>
+								<div>
+								<label class="radio-inline">
+									<input type="radio" name="fareStatus" id="active" value="Active" checked> Active
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="fareStatus" id="inactive" value="Inactive"> Not Active
+								</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="descriptions">Fare Descriptions</label>
+								<textarea id="descriptions" class="form-control" name="descriptions" rows="6">{{descriptions}}</textarea>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div style="margin: auto;text-align: center;">
+								<div class="form-group">
+									<div class="form-group">
+										<input type="button" class="btn btn-default" id="cancel" value="Cancel">
+										<input type="submit" class="btn btn-primary" value="Save">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+		</form>
+<!-- 		{{/with}} -->
+<!-- 	{{else}} -->
+<!-- 		&nbsp;&nbsp;&nbsp;Loading... -->
+<!-- 	{{/if}} -->
+</template>
+
+<!-- <template name="imgFare"> -->
+<!--   <div class="row"> -->
+<!--     <div class="col-xs-12"> -->
+<!-- 			<div class="owl-carousel"> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!--   <div class="row"> -->
+<!--     <div class="col-xs-12"> -->
+<!--       <div class="row"> -->
+<!--         <div class="col-xs-12"> -->
+<!--           <div class="img-container hidden"> -->
+<!--             <img id="image" src="/images/default-2.png" alt="Picture" width="100%"> -->
+<!--           </div> -->
+<!--           <div class="cropper-loading hidden"> -->
+<!--             {{> loading }} -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <div class="row"> -->
+<!--         <div class="col-xs-12"> -->
+<!--           <div class="crop-acts"> -->
+<!--             <label class="btn btn-default btn-upload" for="inputImgFare"> -->
+<!--             <input type="file" class="sr-only" id="inputImgFare" name="file" accept="image/*"> <span class="btn-upload-text">Add Image Fare</span> -->
+<!--             </label> -->
+<!--             <button type="button" class="btn btn-default btn-rotate" data-method="rotate" data-option="90">Putar</button> -->
+<!--             <button type="button" class="btn btn-default btn-crop" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 960, &quot;height&quot;: 360 }"><span class="icon icon ion-ios-upload-outline"></span> Add Image</button> -->
+<!--             <button type="button" class="btn btn-default btn-none btn-disable" data-method="disable">Disable</button> -->
+<!--             <button type="button" class="btn btn-default btn-none btn-enable" data-method="enable">Enable</button> -->
+<!--             <br> -->
+<!--             <button type="button" class="btn btn-default btn-cancel btn-none">Cancel</button> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </template> -->

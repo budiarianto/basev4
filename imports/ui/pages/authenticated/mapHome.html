@@ -1,0 +1,14 @@
+<template name="mapHome">  
+    <form>
+        <div class="form-group">
+        	<h4 class="text-thin">Enter Home Location</h4>
+            <input type="text" class="form-control form-control-plain" id="pickup" placeholder="Enter home location">
+        </div>
+        <a href="settings" type="submit" class="btn btn-success no-radius btn-block">Submit</a>
+    </form>
+    <div class="clearfix gap-bottom-small"></div>
+
+  <div class="map-container"> 	
+    {{> googleMap name="map" options=mapOptions}}
+  </div>
+</template>  

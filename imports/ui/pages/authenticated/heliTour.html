@@ -1,0 +1,37 @@
+<template name="heliTour">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<h3 class="text-thin text-din" style="display: inline-block;" >Heli Tour &nbsp;</h3><button type="button" class="btn btn-success" id="createEvent">Create Event</button>
+			<div class="gap-bottom-small"></div>
+			<form name="searchForm" class="searchForm">
+				<input name="searchEvent" type="text" class="form-control" placeholder="Search">
+				<div class="gap-bottom-small"></div>
+			</form>
+	 	</div>
+	 	
+	 	{{#if Template.subscriptionsReady}}
+	 		{{#if eventList}}
+			 	{{#each eventList}}
+				 	<div class="col-xs-12 card-container">
+				    	<a href="manifest">
+						    <div style="display: block;height: 120px; background: url('{{imgUrl}}') no-repeat; background-size: cover;">
+						        
+						    </div>
+						    <div>
+						        <h4 class="text-din pull-left">Date: {{dt.startDate}} -  {{dt.thruDate}}</h4>
+						        <h4 class="text-din pull-right">Time: {{dt.startTime}} - {{dt.thruTime}}</h4>
+						        <div class="clearfix"></div>
+						        <h4 class="text-din text-gray pull-right">Manifest ({{manifestCount}}/{{pax}})</h4>
+						    </div>
+					    </a>
+					     <a href="/eventDetail/{{_id}}"><h4 class="text-din text-gray pull-left">{{name}}</h4></a>
+					</div>
+				{{/each}}
+			{{/if}}	
+		{{else}}
+			&nbsp;&nbsp;&nbsp;Loading ...
+		{{/if}}
+		
+		
+    </div>
+</template>

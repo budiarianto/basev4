@@ -1,0 +1,55 @@
+<template name="settingsEdit">
+    {{#if Template.subscriptionsReady}}
+        <div class="gap-bottom-small"></div>
+        <center>
+            {{#if showProfileCard}}
+                <!-- ## {{currUser.profile.fullname}} ## -->
+                <input type="text" id="fullName" class="text-din inputTransparent h3" value="{{currUser.profile.fullname}}">
+                <div class="clearfix"></div>
+                
+                <div class="img-container">
+                    {{#if currentUserThumbnailUrl}}
+                        <img src="{{currentUserThumbnailUrl}}" height="85px" width="85px" onError="this.onerror=null;this.src='/images/default-user.png';">
+                    {{else}}
+                        <img src="{{defaultImgUrl 'user'}}">
+                    {{/if}}
+                    <!-- <img src="images/user_icon.jpg"> -->
+                    <span class="fa fa-camera icon leaf changeProfileImage"></span>
+                </div>
+
+            {{/if}}
+
+            {{#if showChangeProfileImage}}
+              {{> changeProfileImage }}
+            {{/if}}
+        </center>
+        
+        <h3 class="text-din">Account Settings</h3>
+        <div class="list-group">
+            <a href="changePassword" class="list-group-item no-radius">
+                <span class="glyphicon glyphicon-lock"></span>Change Password
+                <p class="text-gray text-thin text-descrition-with-icon">Click to change password</p>
+            </a>
+            <!--         <a href="mapWork" class="list-group-item no-radius"> -->
+            <!--             <span class="glyphicon glyphicon-briefcase"></span>Work -->
+            <!--             <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p> -->
+            <!--         </a> -->
+            <!--         <a href="creditCardInformation" class="list-group-item no-radius">
+                <span class="glyphicon glyphicon-credit-card"></span>Credit Card (visa)
+                <p class="text-gray text-thin text-descrition-with-icon">****** 8702</p>
+            </a>
+            <a class="list-group-item no-radius">
+                <span class="glyphicon glyphicon glyphicon-usd"></span>Cash Balance
+                <p class="text-gray text-thin text-descrition-with-icon">IDR 200.000.000</p>
+            </a>
+            <a href="#" class="list-group-item no-radius text-center text-din text-uppercase panel-footer">
+                <h4>Sign out</h4>
+            </a> -->
+        </div>
+        <div class="col-sm-6">
+          <a href="settings" type="button" class="btn btn-block btn-black-outline">BACK</a>
+        </div>
+    {{else}}
+        {{> loading }}
+    {{/if}}
+</template>

@@ -1,0 +1,82 @@
+<template name="orderDetail">
+	<h3 class="text-center text-din gap-bottom-small">R01927536</h3>
+	<h4 class="text-center text-din gap-bottom-small pull-left">Ordered By: Rio Adrian</h4>
+    
+    <div class="gap-bottom-small"></div>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-receipt">
+                <tr>
+                    <td>Date</td>
+                    <td class="pull-right">26-02-2016</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td class="pull-right">10.00</td>
+                </tr>
+                <tr>
+                    <td>ETD</td>
+                    <td class="pull-right">10.00 AM</td>
+                </tr>
+                <tr>
+                    <td>Charged</td>
+                    <td class="pull-right">IDR 2.500.000</td>
+                </tr>
+                
+                <tr>
+                    <td>Status</td>
+                    <td class="pull-right text-blue">Requesting</td>
+                </tr>
+            </table>
+            
+        </div>  
+
+        <div class="col-xs-12">
+            <table class="table table-receipt"> 
+                <caption class="text-din-light text-uppercase">
+                    <h4>Manifest of your booking</h4>
+                </caption> 
+                <thead> 
+                    <tr> 
+                        <th>No</th> 
+                        <th>Name</th> 
+                        <th>Age</th>
+                    </tr> 
+                    </thead> 
+                    <tbody> 
+                    <tr> 
+                        <th scope="row">1</th> 
+                        <td>Mark Otto</td> 
+                        <td>31</td> 
+                    </tr> 
+                    <tr> 
+                        <th scope="row">2</th> 
+                        <td>Jacob Thornton</td> 
+                        <td>25</td> 
+                    </tr> 
+                    <tr> 
+                        <th scope="row">3</th> 
+                        <td>Larry Bird</td> 
+                        <td>44</td>
+                    </tr>
+                    <tr> 
+                        <th scope="row">4</th> 
+                        <td>Larry Page</td> 
+                        <td>44</td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+
+    </div>
+
+    <h4 class="text-din text-center" id="sentOrderGreeting" style="display: none;">
+        Your order has been sent to our operator. You can exit from this app.
+    </h4>
+            
+    <div class="clearfix" style="margin-bottom: 20px;"></div>
+
+    
+    <button type="button" class="btn btn-default no-radius btn-block btn-danger" id="buttonRequest" onclick="javascript: window.history.back();">Close</button>
+</template>

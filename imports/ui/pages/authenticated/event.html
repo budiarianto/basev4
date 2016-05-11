@@ -1,0 +1,239 @@
+<template name="event">
+	{{#if Template.subscriptionsReady}}
+		{{#with event}}
+		<h3 class="text-thin text-din">New Event</h3>
+		<div class="gap-bottom-small"></div>
+		{{> imgEvent}}
+		<form id="eventForm" class="form-group">
+			<!-- <button type="button" class="btn btn-success btn-img-event">
+				<div class="form-inline"><span class="glyphicon glyphicon-plus btnImgEvent"></span>&nbsp; Add image</div>
+			</button> -->
+			<!-- <div class="container">
+				<div class="owl-carousel gap-bottom-small">
+					{{#if images}}
+						{{#each images}}
+						<div class="item">
+							<a href="tourDetails">
+								<picture>
+									<source srcset="{{images.imgUrl}}" media="(min-width: 1000px)" width="100%">
+									<source srcset="{{images.imgUrl}}" media="(min-width: 800px)" width="100%">
+									<source srcset="{{images.imgUrl}}" media="(min-width: 320px)" width="100%">
+									<img srcset="{{images.imgUrl}}" width="100%" alt="Jakarta">
+								</picture>
+								{{#if images.imgDescription}}
+								<div class="slider-headline-wrapper">
+									<h4 class="text-center">{{images.imgDescription}}</h4>
+								</div>
+								{{/if}}
+							</a>
+						</div>
+						{{/each}}
+					{{/if}}
+					<div class="item">
+						<a href="tourDetails">
+							<picture>
+								<source srcset="/images/default-2.png" media="(min-width: 1000px)" width="100%">
+								<source srcset="/images/default-2.png" media="(min-width: 800px)" width="100%">
+								<source srcset="/images/default-2.png" media="(min-width: 320px)" width="100%">
+								<img srcset="/images/default-2.png" width="100%" alt="Jakarta">
+							</picture>
+							{{#if images.imgDescription}}
+							<div class="slider-headline-wrapper">
+								<h4 class="text-center">{{images.imgDescription}}</h4>
+							</div>
+							{{/if}}
+						</a>
+					</div>
+				</div>
+			</div> -->
+			<div class="row">
+				<div class="col-sm-7">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="eventName">Event Name</label>
+								<input type="text" class="form-control" placeholder="Event Name" id="eventName" name="eventName" value="{{name}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="pax">Pax</label>
+								<input type="number" class="form-control" name="pax" id="pax" value={{pax}} min=1 max=500>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="eventStartDate">Start Date</label>
+								<!-- <input type="text" class="form-control" placeholder="Select start date" name="eventStartDate" id="eventStartDate"> -->
+								<div class="form-group">
+									<div class='input-group date' id='eventStartDate'>
+										<input type='text' class="form-control" name='eventStartDate' value="{{dt.startDate}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="eventEndDate">End Date</label>
+								<!-- <input type="text" class="form-control" placeholder="Select end date" name="eventEndDate" id="eventEndDate"> -->
+								<div class="form-group">
+									<div class='input-group date' id='eventEndDate'>
+										<input type='text' class="form-control" name='eventEndDate' value="{{dt.endDate}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="eventStartTime"><div class="visible-xs">Start Time</div><div class="hidden-xs">Time</div></label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select start time" name="eventStartTime" id="eventStartTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='eventStartTime'>
+										<input type='text' class="form-control" name='eventStartTime' value="{{dt.startTime}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="eventEndTime">End Time</label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select end time" name="eventEndTime" id="eventEndTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='eventEndTime'>
+										<input type='text' class="form-control" name='eventEndTime' value="{{dt.endTime}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="active">Status &nbsp;&nbsp;</label>
+								<label class="radio-inline">
+									<input type="radio" name="eventType" id="draft" value="draft" checked> Draft
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="eventType" id="active" value="active"> Active
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="eventType" id="inactive" value="inactive"> Inactive
+								</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="btnAddDetail">Event Details & Descriptions</label>
+								<div>
+									<!-- <button type="button" class="btn btn-success" id="btnAddDetail" data-toggle="modal" data-target="#new-document-modal">
+										<div class="form-inline"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add event detail &amp; descriptions</div>
+									</button> -->
+									<a href="/editors/{{_id}}" type="button" class="btn btn-success" id="btnAddDetail">
+										<div class="form-inline"><span class="glyphicon glyphicon-plus"></span>&nbsp; Event detail &amp; descriptions</div>
+									</a>
+								</div>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="embed-responsive embed-responsive-16by9 gap-bottom-small">
+								<iframe
+									width="560"
+									height="315" src="https://www.youtube.com/embed/{{youtubeId}}?rel=0&amp;showinfo=0"
+									frameborder="0"
+									allowfullscreen>
+								</iframe>
+							</div>
+							<div class="form-group">
+								<label for="videoId">Youtube ID</label>
+								<input type="text" class="form-control" placeholder="Insert Youtube ID to embed youtube video" id="videoId" name="videoId" value="{{youtubeId}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="location">Location</label>
+								<input type="text" class="form-control" placeholder="Location" id="location" name="location" value="{{location.fullAddress}}">
+								<input type="hidden" class="form-control" placeholder="Location" id="latitude" name="latitude" value="{{location.lat}}">
+								<input type="hidden" class="form-control" placeholder="Location" id="longitude" name="longitude" value="{{location.lng}}">
+								<div class="clearfix gap-bottom-small"></div>
+								<div class="map-container">
+									{{> googleMap name="map" options=mapOptions}}
+								</div>
+							</div>
+							<br><br>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group btn-group btn-group-justified">
+						<div class="btn-group" role="group">
+							<input type="button" class="btn btn-danger" id="cancel" value="Cancel">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="submit" class="btn btn-primary" value="Save">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		{{/with}}
+	{{else}}
+		&nbsp;&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>
+
+<template name="imgEvent">
+  <div class="row">
+    <div class="col-xs-12">
+			<div class="owl-carousel">
+			</div>
+		</div>
+	</div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="img-container hidden">
+            <img id="image" src="/images/default-2.png" alt="Picture" width="100%">
+          </div>
+          <div class="cropper-loading hidden">
+            {{> loading }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="crop-acts">
+            <label class="btn btn-default btn-upload" for="inputImgEvent">
+            <input type="file" class="sr-only" id="inputImgEvent" name="file" accept="image/*"> <span class="btn-upload-text">Add Image Event</span>
+            </label>
+            <!-- <button type="button" class="btn btn-default btn-rotate" data-method="rotate" data-option="90">Putar</button> -->
+            <button type="button" class="btn btn-default btn-crop" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 960, &quot;height&quot;: 360 }"><span class="icon icon ion-ios-upload-outline"></span> Add Image</button>
+            <button type="button" class="btn btn-default btn-none btn-disable" data-method="disable">Disable</button>
+            <button type="button" class="btn btn-default btn-none btn-enable" data-method="enable">Enable</button>
+            <br>
+            <button type="button" class="btn btn-default btn-cancel btn-none">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

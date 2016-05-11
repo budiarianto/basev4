@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, ListGroupItem, Table} from 'react-bootstrap';
+import { Row, Col, ListGroupItem, Table, Link} from 'react-bootstrap';
 //import { updateDocument, removeDocument } from '../../api/documents/methods.js';
 
 export const BookingList = ({ booking }) => (

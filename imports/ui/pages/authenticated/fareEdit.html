@@ -1,0 +1,217 @@
+<template name="fareEdit">
+	{{#if Template.subscriptionsReady}}
+		{{#with fare}}
+		<div class="row">
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+			<h3 class="text-thin text-din">{{judul}}</h3>
+				<form id="fareForm" class="form-group">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareName">Fare Name</label>
+								<input type="text" class="form-control" placeholder="Fare Name" id="fareName" maxlength="150" name="fareName" value="{{name}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareStartTime">Air Time</label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select start time" name="fareStartTime" id="fareStartTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='fareStartTime'>
+										<input type='text' placeholder="HH:MM"  class="form-control" name='fareStartTime' value="{{dt}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fareName">Price ( {{priceString}} )</label>
+								<input type="number" class="form-control" placeholder="Price" id="price" maxlength="150" name="price" min="0" value="{{price}}">
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for=departureCity>Departure City</label>
+								<select  class="form-control" name="departureCity" id="departureCity">
+									<option value="undefined">Please select city</option>
+									{{#each cities}}
+									<option value="{{city}}">{{city}}</option>
+									{{/each}}
+								</select>
+							</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="departureCollapse">
+								<div class="form-group well">
+									<label for=departureLocation>Departure Location</label>
+									{{#if departureLocation}}
+									<select  class="form-control" name="departureLocation" id="departureLocation">
+										<option value="undefined">Please select location</option>
+										{{#each departureLocation}}
+										<option value="{{_id}}" {{departureId}}>{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="departureLocation-not-found" class="error" for="departureLocation">departure location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<div class="form-group">
+									<label for=destinationCity>Destination City</label>
+									<select  class="form-control" name="destinationCity" id="destinationCity">
+										{{#if cities}}
+											<option value="undefined">Please select city</option>
+											{{#each cities}}
+											<option value="{{city}}">{{city}}</option>
+											{{/each}}
+										{{else}}
+											<option value="undefined">Departure city not registered</option>
+										{{/if}}
+									</select>
+								</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="destinationCollapse">
+								<div class="form-group well">
+									<label for=destinationLocation>Destination Location</label>
+									{{#if destinationLocation}}
+									<select  class="form-control" name="destinationLocation" id="destinationLocation">
+										<option value="undefined">Please select location</option>
+										{{#each destinationLocation}}
+										<option value="{{_id}}" {{arrivalId}}>{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="destinationLocation-not-found" class="error" for="destinationLocation">destination location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<div>
+								<label for="active">Status &nbsp;&nbsp;</label>
+								</div>
+								<div>
+								{{#if isActive}}
+									<label class="radio-inline">
+										<input type="radio" name="fareStatus" id="active" value="Active" checked> Active
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="fareStatus" id="inactive" value="Inactive"> Not Active
+									</label>
+								{{else}}
+									<label class="radio-inline">
+										<input type="radio" name="fareStatus" id="active" value="Active"> Active
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="fareStatus" id="inactive" value="Inactive" checked> Not Active
+									</label>
+								{{/if}}
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="descriptions">Fare Descriptions</label>
+								<textarea id="descriptions" class="form-control" name="descriptions" rows="6">{{descriptions}}</textarea>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-3">
+			</div>
+<!-- 			<div class="col-sm-5"> -->
+<!-- 					<label for="routes">Routes Covered&nbsp;&nbsp;</label> -->
+<!-- 					<button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#formAddRoute" aria-expanded="false" aria-controls="formAddRoute"> -->
+<!-- 						<span class="glyphicon glyphicon-plus text-thin"></span> Add New Route -->
+<!-- 					</button> -->
+<!-- 					{{> formAddRoute}} -->
+<!-- 					<div class="clear-fix" style="margin-bottom: 10px;"></div> -->
+<!-- 			        <div class="table-responsive sequenceRow">   -->
+<!-- 			          <table class="table table-hover" id="routes"> -->
+<!-- 			            <thead> -->
+<!-- 			              <tr> -->
+<!-- 			                <th>#</th> -->
+<!-- 			                <th>Departure</th> -->
+<!-- 			                <th>Arrival</th> -->
+<!-- 			                <th>Action</th> -->
+<!-- 			              </tr> -->
+<!-- 			            </thead> -->
+<!-- 			            <tbody> -->
+<!-- 			            	{{#each routes}} -->
+<!-- 			                	 {{> routeData}} -->
+<!-- 			                {{/each}} -->
+<!-- 			                  <tr> -->
+<!-- 				                <th></th> -->
+<!-- 				                <th></th> -->
+<!-- 				                <th></th> -->
+<!-- 				                <th></th> -->
+<!-- 				              </tr> -->
+<!-- 			            </tbody> -->
+<!-- 			          </table> -->
+<!-- 			        </div> -->
+<!-- 			</div> -->
+			<div class="col-xs-12">
+				<div class="form-group" style="text-align: center;">
+					<input type="button" class="btn btn-default" id="cancel" value="Cancel">
+					<input type="button" class="btn btn-primary" id="save" value="Save">
+					<input type="button" class="btn btn-danger" id="delete" value="Delete">
+				</div>
+			</div>
+		</div>
+		{{/with}}
+	{{else}}
+		&nbsp;&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>
+<template name="routeData">
+    <tr>
+        <td></td>
+        <td>{{departure}}</td>
+        <td>{{arrival}}</td>
+        <td class="status"><button type="button" class="btn btn-danger btn-sm deleteRoute">Delete</button></td>
+    </tr>
+</template>
+<template name="formAddRoute">
+	<div class="collapse" id="formAddRoute">
+		<form id="frmAddRoute" class="form-group bs-callout bs-callout-success">
+		 	<div class="form-group">
+				<label for=departure>Departure</label>
+				<select  class="form-control" name="departure" id="departure">
+					<option value="undefined">Please select city</option>
+					{{#each city}}
+					<option value="{{this}}" {{currentCity}}>{{this}}</option>
+					{{/each}}
+				</select>
+			</div>
+		 	<div class="form-group">
+				<label for=departure>Arrival</label>
+				<select  class="form-control" name="arrival" id="arrival">
+					<option value="undefined">Please select city</option>
+					{{#each city}}
+					<option value="{{this}}" {{currentCity}}>{{this}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="form-group">
+				<div class="btn-group" role="group">
+					<input type="button" class="btn btn-default" id="clearForm" value="Cancel" data-toggle="collapse" data-target="#formAddRoute" aria-expanded="false" aria-controls="formAddRoute">
+				</div>
+				<div class="btn-group" role="group">
+					<input type="submit" class="btn btn-default" value="Add Route">
+				</div>
+			</div>
+		</form>  
+	</div>	
+</template>

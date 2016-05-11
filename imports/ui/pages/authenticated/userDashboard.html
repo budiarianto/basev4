@@ -1,0 +1,58 @@
+<template name="userDashboard">
+	{{#if Template.subscriptionsReady }}
+
+		<div class="gap-bottom-small"></div>
+	    <center>
+	        <h3 class="text-thin text-din">{{foundUser.profile.fullname}}</h3>
+	        {{#if foundUser.profile.profileImgUrl}}
+	            <img src="{{foundUser.profile.profileImgUrl}}" height="85px" width="85px" onError="this.onerror=null;this.src='/images/default-user.png';">
+	        {{else}}
+	            <img src="{{defaultImgUrl 'user'}}">
+	        {{/if}}
+            
+            <div class="list-group">
+            	<span class="glyphicon"></span>Email
+            	<p class="text-gray text-thin text-descrition-with-icon">{{foundMember.emails}}</p>
+            </div>
+            <div class="list-group">
+            	<span class="glyphicon"></span>Mobile Number
+            	<p class="text-gray text-thin text-descrition-with-icon">{{foundMember.mobileNumber}}</p>
+            </div>
+            
+            <h5 class="text-din"><a href="{{pathFor 'memberEdit'}}/{{foundMember.userId}}">Edit Member</a></h5>
+            <div class="gap-bottom-small"></div>
+	        <div class="groups-gap">
+				<div class="group-btn">
+					<div class="row">
+						<div class="col-xs-12">
+							{{#if userIsBanned}}
+								<button id="unbannedUser" class="btn btn-default btn-lg btn-block btn-gloom background-green">Unbanned User</button>
+							{{else}}
+								<button id="bannedUser" class="btn btn-default btn-lg btn-block btn-gloom background-red">Banned User</button>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			{{#if memberAdmin}}
+			{{else}}
+				<br /><br /><br />
+				<div class="gap-bottom-small"><hr style="border-top: 3px double #8c8b8b;"></div>
+		        <h3 class="text-din">Payment Information</h3>
+	            <div class="list-group">
+	                <!-- <a href="{{pathFor '/creditCard'}}/{{foundUser._id}}" -->
+	                <a href="" class="list-group-item no-radius">
+	                    <span class="glyphicon glyphicon-credit-card"></span>{{getPaymentType}}
+	                <p class="text-gray text-thin text-descrition-with-icon">{{getPaymentNumber}}</p>
+	                </a>
+	            </div>
+			{{/if}}
+			
+
+	    </center>
+	{{else}}
+		{{> loading}}
+	{{/if}}
+</template>

@@ -1,0 +1,78 @@
+<template name="helipadList">
+        <h3 class="text-thin text-din hidden-xs">Helipad List</h3>
+<!--         <div class="gap-bottom-small"></div> -->
+        
+        <nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand text-din visible-xs">Helipad List</a>
+	    </div>
+	    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+	    	<ul class="nav navbar-nav">
+	    		<li>
+	    			<a href="/helipad" ><span class="glyphicon glyphicon-plus"></span> Add New</a>
+	    		</li>
+	    		<li>
+		    		<form name="searchForm" class="navbar-form navbar-left">
+			        	    <div class="form-inline">
+					            <div class="form-group">
+					            	<label for="keyword"></label>
+				                	<input type="text" id="keyword" class="form-control" placeholder="Search for...">
+								</div>
+				            </div>
+			        </form>
+	    		</li>
+	    		
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+	
+	    
+       
+        <div class="table-responsive">          
+          <table id="tableHelipad" class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Helipad Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>City</th>
+                <th>Zip Code</th>
+                <th>Country</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            	{{#each helipads}}
+                	 {{> helipadData}}
+                {{/each}}
+            </tbody>
+            <div class="clearfix"></div>
+          </table>
+        </div>
+         <div class="clearfix"></div>
+</template>
+<template name="helipadData">
+    <tr>
+        <td>{{_id}}</td>
+        <td>{{name}}</td>
+        <td>{{location.lat}}</td>
+        <td>{{location.lng}}</td>
+        <td>{{location.city}}</td>
+        <td>{{location.zip}}</td>
+        <td>{{location.country}}</td>
+        {{#if isAvail}}
+         <td class="status"><span class="badge badge-success"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;Available</td>
+        {{else}}
+        <td class="status"><span class="badge badge-danger"><span class="glyphicon glyphicon-remove"></span></span>&nbsp;Unavailable</td>
+        {{/if}}
+    </tr>
+</template>

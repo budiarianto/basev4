@@ -1,0 +1,70 @@
+<template name="member">
+	{{#if Template.subscriptionsReady}}
+		<form id="memberForm" class="form-group">
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<h3 class="text-thin text-din">Add New Member</h3>
+					<div class="gap-bottom-small"></div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="fullname">Full Name</label>
+								<div class="form-group">
+									<input type="text" name="fullname" id="fullname" class="form-control" placeholder="Full Name">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="emailAddress">Email Address</label>
+								<div class="form-group">
+									<input type="email" name="emailAddress" id="emailAddress" class="form-control" placeholder="Email Address">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="mobileNumber">Mobile Number</label>
+								<div class="form-group">
+									<input type="text" name="mobileNumber" id="mobileNumber" class="form-control" placeholder="Mobile Number">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="mobileNumber">Password</label>
+								<div class="form-group">
+									<input type="password" name="password" id="password" class="form-control" placeholder="Password">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="mobileNumber">Confirm Password</label>
+								<div class="form-group">
+									<input type="password" name="confirmPassword" id="confirm-password" class="form-control" placeholder="Confirm Password">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group btn-group btn-group-justified">
+								<div class="btn-group" role="group">
+									<input type="button" class="btn btn-danger" id="cancel" value="Cancel">
+								</div>
+								<div class="btn-group" role="group">
+									<input type="submit" class="btn btn-primary" value="Save">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+		</form>
+		{{else}}
+			&nbsp;&nbsp;Loading...
+		{{/if}}
+</template>

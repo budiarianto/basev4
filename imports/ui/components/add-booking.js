@@ -3,6 +3,71 @@ import { Link } from 'react-router';
 import { Form,FormGroup,ControlLabel,FormControl,HelpBlock,Checkbox,Radio,Input,Row } from 'react-bootstrap';
 import { insertDocument } from '../../api/documents/methods.js';
 
+  const booking(){
+    return Booking.findOne({});
+  },
+  departureCity(){
+//    var routes = City.find({},{sort:{'sequence': 1}}).fetch();
+//    return routes;
+
+    var fare = Fare.find({status: 'Active'}).fetch();
+    
+    var fareCity = _.pluck(fare, 'departureCity');
+    var departureCity = _.uniq(fareCity);
+    
+    return City.find({city: { $in: departureCity }},{sort:{'sequence': 1}}).fetch();
+  },
+  const departureLocation(){
+    var city = Session.get('departureCity');
+    return Helipad.find({'location.city': city},{sort:{'_id': 1}}).fetch();
+  },
+  const destinationCity(){
+    var city = Session.get('departureCity');
+    var departureId = Session.get('departureId'); 
+    var fare = {};
+    if(departureId)
+      fare = Fare.find({'departureCity': city, 'departureId': departureId}).fetch();
+    else
+      fare = Fare.find({'departureCity': city}).fetch();
+    
+    var arrivalCity = _.pluck(fare, 'arrivalCity');
+    var destinationCity = _.uniq(arrivalCity);
+    
+    return City.find({city: { $in: destinationCity }},{sort:{'sequence': 1}}).fetch();
+    
+  },
+  const destinationLocation(){
+    var arrivalCity = Session.get('destinationCity');
+    var departureCity = Session.get('departureCity');
+    var departureId = Session.get('departureId'); 
+    var data = Fare.find({'departureCity': departureCity,'arrivalCity': arrivalCity,'departureId': departureId},{sort:{'_id': 1}}).fetch();
+    return data;
+  },
+  const amountString(){
+    var departureCity = Session.get('departureCity');
+    var departureId = Session.get('departureId'); 
+    var arrivalCity = Session.get('destinationCity');
+    var arrivalId = Session.get('destinationId'); 
+    
+    if(departureCity && departureId && arrivalCity && arrivalId){
+      var data = Fare.findOne({'departureCity': departureCity,'arrivalCity': arrivalCity,'departureId': departureId, 'arrivalId': arrivalId});
+      //console.log('fare amount: ', data);
+      if(data){
+        Session.set('amount', data.price);
+        return accounting.formatNumber(data.price);
+      }else{
+        Session.set('amount', 0);
+        return 0;
+      }
+    }else{
+      Session.set('amount', 0);
+      return 0;
+    }
+  },
+  const  amount(){
+    return parseFloat(Session.get('amount'));
+  },
+  
 
 export const  AddBooking = React.createClass({
   handleSubmit: function(event) {
@@ -10,9 +75,9 @@ export const  AddBooking = React.createClass({
     var flightDate = this.refs.flightDate.value.trim();
     var fullName = this.refs.fullName.value.trim();
     var departureCity = this.refs.departureCity.value.trim(); 
-    var departureLocation = this.refs.departureLocation.value.trim(); 
+    //var departureLocation = this.refs.departureLocation.value.trim(); 
     var destinationCity = this.refs.destinationCity.value.trim(); 
-    var destinationLocation = this.refs.destinationLocation.value.trim(); 
+    //var destinationLocation = this.refs.destinationLocation.value.trim(); 
     var pax = this.refs.pax.value.trim();  
     var notes = this.refs.notes.value.trim();
     var fare = this.refs.fare.value.trim();
@@ -27,16 +92,48 @@ export const  AddBooking = React.createClass({
       notes+
       fare
       );
-    // insertDocument.call({title,});
-    // if (!title ) {
-    //   Bert.alert('Please Fill !', 'warning');
-    //   return;
-    // }
-    // TODO: send request to the server
-    //this.refs.flightDate.value = '';
-    //this.refs.text.value = '';
-    return;
+    },
+  changeDepartureCity: function(event){
+    event.preventDefault();
+    var city = this.refs.departureCity.value.trim();
+    Session.set('departureCity', city);
+    var destinationLocation = Helipad.find({'location.city': city});
+    if(destinationLocation){
+      $('#departureCollapse').collapse('show');
+    }
+    else{
+      $('#departureCollapse').collapse('hide');
+    }
+    
   },
+
+  changeDepartureLocation: (event) => {
+    event.preventDefault();
+    var departureId = $('#departureLocation').val();
+    Session.set('departureId', departureId);
+  },
+  changeDestinationLocation:(event) => {
+    event.preventDefault();
+    var destinationId = $('#destinationLocation').val();
+    Session.set('destinationId', destinationId);
+  },
+
+  changeDestinationCity: (event) => {
+    event.preventDefault();
+    var city = $('#destinationCity').val();
+    Session.set('destinationCity', city);
+    var destinationLocation = Helipad.find({'location.city': city});
+    if(destinationLocation)
+      $('#destinationCollapse').collapse('show');
+    else
+      $('#destinationCollapse').collapse('hide');
+  },
+  
+  clicCancel: (e)=>{
+    e.preventDefault();
+    window.history.back();
+  },
+
   render: function() {
     return (
       <form className="commentForm" onSubmit={this.handleSubmit}>
@@ -88,7 +185,8 @@ export const  AddBooking = React.createClass({
                   <select  
                           className="form-control" 
                           ref="departureCity" 
-                          id="departureCity">
+                          id="departureCity"
+                          onChange="{this.changeDepartureCity}">
                     <option value="undefined">Please select city</option>
                     <option value="Jakarta">Jakarta</option>
                     <option value="Bandung">Bandung</option>
@@ -102,7 +200,8 @@ export const  AddBooking = React.createClass({
                     <select  
                             className="form-control" 
                             ref="departureLocation" 
-                            id="departureLocation">
+                            id="departureLocation"
+                            onChange="{this.changeDepartureLocation}">
                       <option value="undefined">Please select location</option>
                       <option value="Mitra">Mitra</option>
                       <option value="transStudio">Trans Studio</option>
@@ -120,7 +219,8 @@ export const  AddBooking = React.createClass({
                   <select  
                           className="form-control" 
                           ref="destinationCity" 
-                          id="destinationCity">
+                          id="destinationCity"
+                          onChange="changeDestinationCity">
                       <option value="undefined">Please select city</option>
                       <option value="Jakarta">Jakarta</option>
                       <option value="Bandung">Bandung</option>

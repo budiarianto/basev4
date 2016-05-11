@@ -8,7 +8,7 @@ import { SearchBooking } from '../components/search-booking.js';
 export const Booking = () => (
   <Row>
     <Col xs={ 12 }>
-      <h4 className="page-header">Booking List</h4>
+      <h4 className="page-header text-thin text-din hidden-xs">Booking List</h4>
     <SearchBooking />  
     <BookingList />  
     </Col>

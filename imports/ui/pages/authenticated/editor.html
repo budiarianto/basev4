@@ -1,0 +1,27 @@
+<template name="editor">
+  <header class="editor-header">
+    	<form>
+    		<div class="form-inline">
+    			 <label for="documentTitle">Title</label>
+    			<input type="text" name="detailHeader" value="{{details.detailHeader}}">
+    			<input type="text" name="sequence" value="{{details.sequence}}">
+    		</div>
+    		<div class="form-inline">
+    			<button type="button" class="btn btn-success">Back</button>
+    		</div>
+		</form>
+    {{#if saving}}
+      <span class="save-state"><i class="fa fa-frefresh fa-spin"></i> Saving...</span>
+    {{else}}
+      <span class="save-state text-success"><i class="fa fa-check"></i> Saved!</span>
+    {{/if}}
+  </header>
+  <div class="editor-preview">
+    <div class="editor-wrap">
+      <textarea id="editor"></textarea>
+    </div>
+    <div class="preview-wrap">
+      <div id="preview"></div>
+    </div>
+  </div>
+</template>

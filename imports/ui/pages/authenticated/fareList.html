@@ -1,0 +1,95 @@
+<template name="fareList">
+<!--         <h3 class="text-thin text-din">Fare List</h3> -->
+<!--         <div class="gap-bottom-small"></div> -->
+        
+        <nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand text-din">Fare List</a>
+	    </div>
+	    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+	    	<ul class="nav navbar-nav">
+	    		<li>
+	    			<a href="/fare" ><span class="glyphicon glyphicon-plus"></span> Add New</a>
+	    		</li>
+	    		<li>
+		    		<form name="searchForm" class="navbar-form navbar-left">
+			        	   <div class="form-inline">
+					            <div class="form-group">
+					            	<label for="keyword"></label>
+				                	<input type="text" id="keyword" class="form-control" placeholder="Search for...">
+								</div>
+				            </div>
+			        </form>
+	    		</li>
+	    		
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+	
+	    
+        {{#if fares}}  
+        <div class="table-responsive sequenceRow">
+          <table id="tableFares" class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fare Name</th>
+                <th>Departure City</th>
+                <th>Departure Location</th>
+                <th>Arrival City</th>
+                <th>Arrival Location</th>
+                 <th>Air Time (HH:mm)</th>
+                <th>Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            	{{#each fares}}
+                	 {{> fareData}}
+                {{/each}}
+                <tr>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
+              	</tr>
+            </tbody>
+            <div class="clearfix"></div>
+          </table>
+        </div>
+        {{else}}
+			<label>There is no fare yet to show.</label>
+	  	{{/if}}
+         <div class="clearfix"></div>
+</template>
+<template name="fareData">
+    <tr>
+        <td></td>
+        <td>{{name}}</td>
+        <td>{{departureCity}}</td>
+        <td>{{departureLocation}}</td>
+        <td>{{arrivalCity}}</td>
+        <td>{{arrivalLocation}}</td>
+       	<td>{{airTimeString}}</td>
+        <td class="text-right">{{priceString}}</td>
+        {{#if isActive}}
+         <td class="status"><span class="badge badge-success"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;Active</td>
+        {{else}}
+        <td class="status"><span class="badge badge-danger"><span class="glyphicon glyphicon-remove"></span></span>&nbsp;Not Active</td>
+        {{/if}}
+    </tr>
+</template>

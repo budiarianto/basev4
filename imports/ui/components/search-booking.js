@@ -18,7 +18,6 @@ import { ListGroupItem,Button,Glyphicon,Div,Navbar,Nav,NavItem,NavDropdown,MenuI
     });
   }
 };
-
 const handleRemoveDocument = (documentId, event) => {
   event.preventDefault();
   if (confirm('Are you sure? This is permanent.')) {
@@ -76,6 +75,3 @@ export const SearchBooking = ({  }) => (
     </Navbar.Collapse>
   </Navbar>
 );
-
-
-

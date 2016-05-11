@@ -1,0 +1,98 @@
+<template name="eventDetail">
+
+<!-- 	{{>nav title='Tour Details' back='true'}} -->
+	{{#if Template.subscriptionsReady}}
+		{{#if _event}}
+		<div class="container">
+			<h3 class="text-din-light">{{_event.name}}</h3>
+			<div class="separator-short-blue"></div>
+		</div>
+	
+		<div class="container">
+			<!-- carousel -->
+			<div class="owl-carousel gap-bottom-small">
+				{{#if images}}
+					{{#each images}}
+					<div class="item">
+						<a href="tourDetails">
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source srcset="{{images.imgUrl}}" media="(min-width: 1000px)" width="100%">
+								<source srcset="{{images.imgUrl}}" media="(min-width: 800px)" width="100%">
+								<source srcset="{{images.imgUrl}}" media="(min-width: 320px)" width="100%">
+								<!--[if IE 9]></video><![endif]-->
+								<img srcset="{{images.imgUrl}}" width="100%" alt="Jakarta">
+							</picture>
+							{{#if images.imgDescription}}
+							<div class="slider-headline-wrapper">
+								<h4 class="text-center">{{images.imgDescription}}</h4>
+							</div>
+							{{/if}}
+						</a>
+					</div>
+					{{/each}}
+				{{/if}}
+			</div>
+			<!-- carousel -->
+		</div>
+	
+		<div class="container">
+			<div class="col-sm-7">
+	
+				<a class="visible-xs btn button-blue btn-modal-agreement">Edit</a>
+	
+				
+				<h3 class="text-din text-uppercase">Nikmati Pemandangan dan Pengalaman menakjubkan</h3>
+				<span>Departure</span> : <strong>{{_event.location.fullAddress}}</strong><br/>
+				<span>Start From:</span> <strong>{{dateTime.startTime}} - {{dateTime.thruTime}}</strong><br/>
+				<span>Availability:</span> <strong>{{dateTime.startDate}} - {{dateTime.thruDate}}</strong>
+				<div class="clearfix gap-bottom-small"></div>
+	
+				<div class="social-media">
+					<ul class="list-inline">
+					  <li><a href=""><img src="/images/socials/facebook_32.png"></a></li>
+					  <li><a href=""><img src="/images/socials/twitter_32.png"></a></li>
+					  <li><a href=""><img src="/images/socials/linkedin_32.png"></a></li>
+					  <li><a href=""><img src="/images/socials/pinterest_32.png"></a></li>
+					  <li><a href=""><img src="/images/socials/email_32.png"></a></li>
+					</ul>
+				</div>
+	
+				<div class="visible-xs embed-responsive embed-responsive-16by9 gap-bottom-small">
+					<iframe
+						width="560"
+						height="315" src="https://www.youtube.com/embed/{{_event.videoId}}?rel=0&amp;showinfo=0"
+						frameborder="0"
+						allowfullscreen>
+					</iframe>
+				</div>
+	
+				<div class="descriptions">
+				</div>
+				
+	
+			</div>
+			<div class="col-sm-5">
+				<div class="details">
+				</div>
+				<h3 class="text-din text-uppercase hidden-xs">Tour Video Preview</h3>
+				<div class="hidden-xs embed-responsive embed-responsive-16by9 gap-bottom-small">
+					<iframe
+						width="560"
+						height="315" src="https://www.youtube.com/embed/{{_event.videoId}}?rel=0&amp;showinfo=0"
+						frameborder="0"
+						allowfullscreen>
+					</iframe>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<a href="/event/{{eventId}}" class="btn button-blue btn-block btn-modal-agreement">Edit</a>
+				<br>
+			</div>
+		</div>
+		{{/if}}
+	{{else}}
+		&nbsp;&nbsp;&nbsp;Loading ...
+	{{/if}}
+<!-- 	{{> modalAgreement}} -->
+</template>

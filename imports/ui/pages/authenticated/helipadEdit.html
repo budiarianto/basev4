@@ -1,0 +1,357 @@
+<template name="helipadEdit">
+	{{#if Template.subscriptionsReady}}
+		{{#with helipad}}
+		<h3 class="text-thin text-din">Helipad Edit</h3>
+		<div class="gap-bottom-small"></div>
+<!-- 		{{> imgHelipad}} -->
+			{{> formHelipadEdit}}
+		{{/with}}
+	{{else}}
+		&nbsp;&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>
+<template name="formHelipadEdit">
+<form id="helipadForm" class="form-group">
+			<div class="row">
+				<div class="col-sm-7">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="helipadEditId">Helipad ID:</label>
+								<label id="helipadEditId"> {{helipadId}}</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="helipadName">Helipad Name</label>
+								<input type="text" class="form-control" placeholder="Helipad Name" id="helipadName" maxlength="100" name="helipadName" value="{{name}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<label for="helipadStartDate">Contract Period:</label>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="helipadStartDate">Start Date</label>
+								<!-- <input type="text" class="form-control" placeholder="Select start date" name="helipadEditStartDate" id="helipadEditStartDate"> -->
+								<div class="form-group">
+									<div class='input-group date' id='helipadStartDate'>
+										<input type="text" placeholder="DD/MM/YYYY" class="form-control" name='helipadStartDate' value="{{dt.startDate}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="helipadEndDate">End Date</label>
+								<!-- <input type="text" class="form-control" placeholder="Select end date" name="helipadEditEndDate" id="helipadEditEndDate"> -->
+								<div class="form-group">
+									<div class='input-group date' id='helipadEndDate'>
+										<input type="text" placeholder="DD/MM/YYYY" class="form-control" name='helipadEndDate' value="{{dt.thruDate}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<label for="helipadStartTime">Operational Time:</label>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="helipadStartTime">From</label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select start time" name="helipadEditStartTime" id="helipadEditStartTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='helipadStartTime'>
+										<input type='text' placeholder="HH:MM PP"  class="form-control" name='helipadStartTime' value="{{dt.startTime}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="helipadEndTime">To</label>
+								<!-- <input type="text" class="form-control timepicker" placeholder="Select end time" name="helipadEditEndTime" id="helipadEditEndTime"> -->
+								<div class="form-group">
+									<div class='input-group date' id='helipadEndTime'>
+										<input type='text' placeholder="HH:MM PP" class="form-control" name='helipadEndTime' value="{{dt.thruTime}}"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+									<div class="errorText error"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="active">Status &nbsp;&nbsp;</label>
+								<label class="radio-inline">
+									<input type="radio" name="helipadType" id="active" value="Available" {{isAvailable}}> Available
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="helipadType" id="inactive" value="Unavailable" {{isUnavailable}}> Unavailable
+								</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="descriptions">Helipad Descriptions</label>
+								<textarea id="descriptions" class="form-control" name="descriptions" rows="6">{{descriptions}}</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="row">
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label for="city">City </label>
+								<select  class="form-control" name="city" id="city">
+									<option value="undefined">Please select city</option>
+									{{#each cities}}
+									<option value="{{city}}" {{currentCity}}>{{city}}</option>
+									{{/each}}
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="location">Location</label>
+								<!-- Geolocation & full address -->
+								<input type="text" class="form-control" placeholder="Location" id="location" name="location" value="{{location.fullAddress}}">
+							</div>
+						</div>						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="latitude">Longitude - Latitude</label>
+								<div class="form-inline">
+									<div class="form-group">
+									<input type="text" class="form-control latlng" placeholder="longitude" id="longitude" name="longitude" value="{{location.lng}}">
+									</div>
+									<div class="form-group">
+									<input type="text" class="form-control latlng" placeholder="latitude" id="latitude" name="latitude" value="{{location.lat}}">
+									</div>
+									{{#if isLoading}}
+										<div class="form-group">
+											{{> loading}}
+										</div>
+									{{/if}}
+								</div>
+							</div>
+						</div>				
+						<div class="col-xs-12">
+							<div class="form-group">
+<!-- 								<label for="location">Location</label> -->
+<!-- 								<input type="text" class="form-control" placeholder="Location" id="location" name="location" value="{{location.fullAddress}}"> -->
+<!-- 								<input type="hidden" class="form-control" placeholder="Location" id="latitude" name="latitude" value="{{location.lat}}"> -->
+<!-- 								<input type="hidden" class="form-control" placeholder="Location" id="longitude" name="longitude" value="{{location.lng}}"> -->
+								<!-- Data alamat persection -->
+								<input type="hidden" class="form-control" placeholder="country" id="country" name="country" value="{{location.country}}">
+								<input type="hidden" class="form-control" placeholder="placeId" id="placeId" name="placeId" value="{{location.placeId}}">
+								<input type="hidden" class="form-control" placeholder="street" id="street" name="street" value="{{location.street}}">
+								<input type="hidden" class="form-control" placeholder="state" id="state" name="state" value="{{location.state}}">
+								<input type="hidden" class="form-control" placeholder="zip" id="zip" name="zip" value="{{location.zip}}">
+								<!-- Administrative levels -->
+								<input type="hidden" class="form-control" placeholder="level1long" id="level1long" name="level1long" value="{{location.administrativeLevels.level1long}}">
+								<input type="hidden" class="form-control" placeholder="level2long" id="level2long" name="level2long" value="{{location.administrativeLevels.level2long}}">
+								<input type="hidden" class="form-control" placeholder="level3long" id="level3long" name="level3long" value="{{location.administrativeLevels.level3long}}">
+								<input type="hidden" class="form-control" placeholder="level4long" id="level4long" name="level4long" value="{{location.administrativeLevels.level4long}}">
+								
+								<div class="clearfix gap-bottom-small"></div>
+								<div class="map-container-summary">
+									{{> googleMap name="map" options=mapOptions}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<center>
+						<div class="form-group">
+							<div class="form-group" >
+								<input type="button" class="btn btn-default" id="cancel" value="Cancel">
+								<input type="submit" class="btn btn-primary" value="Save">
+								{{#unless showFareList}}
+								<input type="button" class="btn btn-danger" id="delete" value="Delete">
+								{{/unless}}
+							</div>
+						</div>
+					</center>
+				</div>
+			</div>
+		</form>
+			<div class="form-group">
+				<h3 class="text-thin text-din" style="display: inline;margin-right: 5px;">Fare List</h3>
+				<button class="btn btn-success" id="addFare" type="button" data-toggle="collapse" data-target="#addFareCollapse" aria-expanded="false" aria-controls="addFareCollapse"><span class="glyphicon glyphicon-plus"></span>Add Fare</button>
+			</div>
+			
+			<div class="collapse" id="addFareCollapse">
+				<div class="bs-callout bs-callout-success">
+					{{> formAddFare}}
+				</div>
+			</div>
+							
+			<hr class="styleGradient">
+			 <div class="table-responsive sequenceRow">          
+	          <table class="table table-hover">
+	            <thead>
+	              <tr>
+	                <th>#</th>
+	                <th>Fare Name</th>
+	                <th>Departure City</th>
+	                <th>Departure Location</th>
+	                <th>Arrival City</th>
+	                <th>Arrival Location</th>
+	                 <th>Air Time (HH:mm)</th>
+	                <th>Price</th>
+	                <th>Status</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	            {{#if showFareList}}
+	            	{{#if fares}}
+	            	<tr>
+	            		<td class="groupTitle" colspan="9"><h4 class="text-thin text-din">From - {{name}}</h4></td>
+	            	</tr>
+	            	{{#each fares}}
+	            		 {{> fareData}}
+	                {{/each}}
+	                {{/if}}
+	                
+	                {{#if faresTo}}
+	                <tr>
+	            		<td class="groupTitle" colspan="9"><h4 class="text-thin text-din">To - {{name}}</h4></td>
+	            	</tr>
+	            	{{#each faresTo}}
+	            		 {{> fareData}}
+	                {{/each}}
+	                {{/if}}
+	                <tr>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+		                <th></th>
+	              	</tr>
+	            {{else}}
+	            	<tr>
+	            		<td class="groupTitle" colspan="9">There is no fare to show</td>
+	            	</tr>
+	            {{/if}}
+	            </tbody>
+	            <div class="clearfix"></div>
+	          </table>
+	        </div>
+</template>
+<template name="formAddFare">
+	<label style="font-weight: normal;">Add fare from {{name}} </label>
+	<form id="fareForm" name="fareForm" class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="fareName">Fare Name</label>
+					<input type="text" class="form-control" placeholder="Fare Name" id="fareName" maxlength="150" name="fareName">
+				</div>
+				<div class="form-group">
+					<label for="fareStartTime">Air Time</label>
+					<!-- <input type="text" class="form-control timepicker" placeholder="Select start time" name="fareStartTime" id="fareStartTime"> -->
+					<div class="form-group">
+						<div class='input-group date' id='fareStartTime'>
+							<input type='text' placeholder="HH:MM"  class="form-control" name='fareStartTime'/>
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-time"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="fareName">Price</label>
+					<input type="number" class="form-control" placeholder="Price" id="price" min="0" maxlength="150" name="price" >
+				</div>
+				
+				<div class="form-group">
+					<label for=departureCity>Departure City: {{location.city}}</label>
+					<input type="hidden" name="departureCity" id="departureCity" value="{{location.city}}">
+					<input type="hidden" name="departureLocation" id="departureLocation" value="{{_id}}">
+				</div>	
+				<div class="form-group">
+					<label for=departureLocation>Departure Location: {{name}}</label>
+					<input type="hidden" name="departureLocationName" id="departureLocationName" value="{{name}}">
+				</div>	
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for=destinationCity>Destination City</label>
+					<select  class="form-control" name="destinationCity" id="destinationCity">
+						{{#if cities}}
+							<option value="undefined">Please select city</option>
+							{{#each cities}}
+							<option value="{{city}}">{{city}}</option>
+							{{/each}}
+						{{else}}
+							<option value="undefined">Departure city not registered</option>
+						{{/if}}
+					</select>
+				</div>	
+				
+				<div class="collapse" id="destinationCollapse">
+					<div class="form-group well">
+						<label for=destinationLocation>Destination Location</label>
+						{{#if destinationLocation}}
+						<select  class="form-control" name="destinationLocation" id="destinationLocation">
+							<option value="undefined">Please select location</option>
+							{{#each destinationLocation}}
+							<option value="{{_id}}">{{name}}</option>
+							{{/each}}
+						</select>
+						{{else}}
+							<label id="destinationLocation-not-found" class="error" for="destinationLocation">destination location not found.</label>
+						{{/if}}
+					</div>	
+				</div>
+				
+				<div class="form-group">
+					<div>
+						<label for="active">Status &nbsp;&nbsp;</label>
+					</div>
+					<div>
+						<label class="radio-inline">
+							<input type="radio" name="fareStatus" id="active" value="Active" checked> Active
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="fareStatus" id="inactive" value="Inactive"> Not Active
+						</label>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="descriptions">Fare Descriptions</label>
+					<textarea id="descriptions" class="form-control" name="descriptions" rows="6"></textarea>
+				</div>
+				<div class="form-group">
+					<div class="form-group">
+						<input type="reset" class="btn btn-default" id="cancelAddFare" value="Cancel">
+						<input type="submit" class="btn btn-primary" id="saveAddFare" value="Save">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</template>

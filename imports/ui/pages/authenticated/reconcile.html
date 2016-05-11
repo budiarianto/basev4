@@ -1,0 +1,138 @@
+<template name="reconcile">
+    {{#if Template.subscriptionsReady}}
+       <h3 class="text-thin text-din hidden-xs">Reconcile</h3>
+		  <nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand text-din visible-xs">Reconcile</a>
+		    </div>
+		    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+		    	<ul class="nav navbar-nav">
+		    		<li>
+						<form name="searchForm" class="navbar-form navbar-left" >
+					        	<div class="form-inline">
+						            <div class="form-group">
+						                <label for="status">Booking Status </label>
+<!-- 						                <select name="status" class="form-control bookingStatus">                 -->
+<!-- 						                    <option value="undefined">All</option> -->
+<!-- 						                    <option value="authorize">Authorize</option> -->
+<!-- 						                    <option value="challenge">Challenge</option> -->
+<!-- 						                    <option value="approve">Approve</option> -->
+<!-- 						                    <option value="cancel">Cancel</option> -->
+<!-- 						                    <option value="success">Success</option> -->
+<!-- 						                    <option value="settlement">Settlement</option> -->
+<!-- 						                </select> -->
+											<select name="status" class="form-control bookingStatus">                
+							                    <option value="undefined">All</option>
+							                    <option value="Paid">Paid</option>
+							                    <option value="Closed">Closed</option>
+							                    <option value="Refund">Refund</option>
+					                		</select>
+						            </div>
+						             <div class="form-group">
+						            	<label for="fromDate">&nbsp;&nbsp;Flight From</label>
+					                	<div class="form-group">
+											<div class='input-group date' id='fromDate'>
+												<input type='text' placeholder="DD/MM/YYYY" size="13" class="form-control fromDate" name="fromDate"/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+						            </div>
+						            <div class="form-group">
+						            	<label for="thruDate">&nbsp;&nbsp;Thru</label>
+					                	 <div class="form-group">
+											<div class='input-group date' id='thruDate'>
+												<input type='text' placeholder="DD/MM/YYYY" size="13" class="form-control thruDate" name="thruDate"/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+						            </div>
+						            <div class="form-group">
+						            	<label for="keyword">&nbsp;&nbsp;Search </label>
+					                	 <input id="keyword" type="text" class="form-control" placeholder="Enter Keywords">
+						            </div>
+					            </div>
+					        </form>
+		    		</li>
+		    		
+		    	</ul>
+		    </div>
+		  </div>
+		</nav>
+		
+		{{#if reconcileList}}
+        <div class="table-responsive sequenceRow">          
+          <table id="tableReconcile" class="table table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>#</th>
+<!--                 <th>Order No</th> -->
+                <th>Booking Code</th>
+                <th>Status</th>
+                <th>Booking By</th>
+                <th>Flight Date</th>               
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Difference</th>
+                <th>Diff %</th>
+                <th>Settlement Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                  {{#each reconcileList}}
+                        <tr>
+                            <td></td>
+<!--                             <td><a href="">{{_id}}</a></td> -->
+                            <td><a href="/bookingEdit/{{_id}}/reconcile">{{bookingCode}}</a></td>
+                            <td>{{status}}</td>
+                            <td class="popupDetail">{{billingInfo.fullName}}
+                                <div id="popover-content" class="hide">
+					                    <div class="gap-bottom-small"></div>
+					                    <center>
+					                        <h3 class="text-thin text-din">{{billingInfo.fullName}}</h3>
+					                        <img src="images/user_icon.jpg">
+					                    </center>
+					                    <h3 class="text-din">Profile Account</h3>
+					                    <div class="list-group">
+					                        <div class="list-group-item no-radius">
+					                            <span class="glyphicon glyphicon-envelope"></span>&nbsp;Email
+					                            <p class="text-gray text-thin text-descrition-with-icon">{{billingInfo.email}}</p>
+					                        </div>
+					                    </div>
+					            </div>
+                            </td>
+                            <td>
+                                <div class="list">{{formatDate flightDate}}</div>
+                                <div class="list-edit" style="display: none;">
+                                    <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+                                </div>
+                            </td>
+                            <td class="text-right">{{formatNumber fare}}</td>
+                            <td class="text-right">{{#if settlementCheck bookingCode}}{{settlementCheck bookingCode}}{{else}} - {{/if}}</td>
+                            <td class="text-right">{{#if diffAmount fare bookingCode}}{{diffAmount fare bookingCode}}{{else}} - {{/if}}</td>
+                            <td class="text-right">{{#if settlementCheck bookingCode}}{{diffPercentage fare bookingCode}}{{else}} - {{/if}}</td>
+                            <td>{{#if settlementStatus bookingCode}}<span class="badge {{badgeIcon.badge}}"><span class="glyphicon {{badgeIcon.icon}}"></span></span>&nbsp;{{settlementStatus bookingCode}}{{else}}waiting for settlement{{/if}}</td>
+                        </tr>
+                    {{/each}}
+            </tbody>
+            <div class="clearfix"></div>
+          </table>
+        </div>
+        {{else}}
+	     	<label>Reconcile data not found!</label>
+	    {{/if}}
+        <div class="clearfix"></div>
+    {{else}}
+        <label>Reconcile data not found!</label>
+    {{/if}}
+</template>

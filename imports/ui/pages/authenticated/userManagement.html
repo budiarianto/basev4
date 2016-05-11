@@ -1,0 +1,137 @@
+<template name="userManagement">
+{{#if Template.subscriptionsReady}}
+
+{{#if admin}}
+    <div class="gap-bottom-small"></div>
+    <!-- ini halaman user management -->
+    <div class="section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-4"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="premier">
+            <div class="bucket">
+              <h4 class="lead">Invite User</h4>
+              {{#if currentUser }}
+                <form class="form-simple" id='inviteUserAdmin' name="inviteUserAdmin">
+                  <div class="form-group">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="Masukkan alamat email"  autofocus required/>
+                  </div>
+                  <div class="form-group">
+                    <label for="active">Status: &nbsp;&nbsp;</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="userStatus" id="admin" value="administrator"> Administrator
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="userStatus" id="operator" value="operator"> Operator
+                    </label>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <!-- <a href="{{pathFor '/'}}" class="btn btn-block btn-black-outline">CANCEL</a> -->
+                    </div>
+                    <div class="col-xs-6">
+                      <button type="submit" class="btn btn-block btn-black btn-loading">
+                        <span>SUBMIT</span>
+                        <div class="spinner">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{#if inviteUserAdminList }}
+  <div class="gap-bottom-small"><hr style="border-top: 3px double #8c8b8b;"></div>
+  <h3 class="text-thin text-din">Pending Invitations</h3>
+  <div class="gap-bottom-small"></div>
+  <div class="table-responsive">          
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <!-- <th>Inviter Id</th> -->
+          <th>Invited By</th>
+          <th>Email Invited</th>
+          <!-- <th>Token key</th> -->
+          <th>Status</th>
+          <th>Invited Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each inviteUserAdminList}}
+        <tr>
+          <td>{{incremented @index}}</td>
+          <!-- <td>{{userId}}</td> -->
+          <td>{{userProfile.fullname}}</td>
+          <td>{{email}}</td>
+          <!-- <td>{{token}}</td> -->
+          <td>{{status}}</td>
+          <td>{{formatDate createdDate}}</td>
+          <td class="status">
+          	<button type="button" class="btn btn-danger btn-sm deleteInvitation" name="deleteInvitation">
+          		<span class="glyphicon glyphicon-remove"></span>
+          	</button>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <div class="clearfix"></div>
+    </table>
+  </div>
+  {{/if}}
+
+  <div class="gap-bottom-small"><hr style="border-top: 3px double #8c8b8b;"></div>
+  <h3 class="text-thin text-din">Administrators</h3>
+  <div class="gap-bottom-small"></div>
+  {{#if memberAdminList }}
+  <div class="table-responsive">          
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <!-- <th>User Id</th> -->
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Registered Date</th>
+          <th>Status</th>
+       </tr>
+      </thead>
+      <tbody>
+        {{#each memberAdminList}}
+        <tr>
+          <td>{{incremented @index}}</td>
+          <!-- <td>{{_id}}</td> -->
+          <td><a href="{{pathFor 'userDashboard'}}/{{userId}}">{{fullname}}</a></td>
+          <td>{{emails}}</td>
+          <td>{{memberRole}}</td>
+          <td>{{formatDate createdDate}}</td>
+          <td>{{memberStatus}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <div class="clearfix"></div>
+    </table>
+  </div>
+  {{else}}
+    User Admin Not Found
+  {{/if}}
+
+{{/if}}
+
+{{else}}
+    {{> loading }}
+{{/if}}
+</template>

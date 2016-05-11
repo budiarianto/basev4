@@ -1,0 +1,39 @@
+<template name="settings">
+{{#if Template.subscriptionsReady}}
+    <div class="gap-bottom-small"></div>
+    <center>
+        <h3 class="text-thin text-din">{{currUser.profile.fullname}}</h3>
+        {{#if currentUserThumbnailUrl}}
+            <img src="{{currentUserThumbnailUrl}}" height="85px" width="85px" onError="this.onerror=null;this.src='/images/default-user.png';">
+        {{else}}
+            <img src="{{defaultImgUrl 'user'}}">
+        {{/if}}
+        <h5 class="text-din"><a href="settingsEdit">Edit Account</a></h5>
+    </center>
+    
+    <!-- <h3 class="text-din">Favourite Places</h3> -->
+    <div class="list-group">
+        <!-- <a href="mapHome" class="list-group-item no-radius">
+            <span class="glyphicon glyphicon-home"></span>Address
+            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+        </a> -->
+        <!-- <a href="mapWork" class="list-group-item no-radius">
+            <span class="glyphicon glyphicon-briefcase"></span>Work
+            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+        </a> -->
+<!--         <a href="creditCardInformation" class="list-group-item no-radius">
+            <span class="glyphicon glyphicon-credit-card"></span>Credit Card (visa)
+            <p class="text-gray text-thin text-descrition-with-icon">****** 8702</p>
+        </a>
+        <a class="list-group-item no-radius">
+            <span class="glyphicon glyphicon glyphicon-usd"></span>Cash Balance
+            <p class="text-gray text-thin text-descrition-with-icon">IDR 200.000.000</p>
+        </a>
+        <a href="#" class="list-group-item no-radius text-center text-din text-uppercase panel-footer">
+            <h4>Sign out</h4>
+        </a> -->
+    </div>
+{{else}}
+    {{> loading }}
+{{/if}}
+</template>

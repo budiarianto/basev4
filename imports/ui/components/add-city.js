@@ -4,6 +4,13 @@ import { Link } from 'react-router';
 // import { Input } from 'react-bootstrap';
 // import { insertDocument } from '../../api/documents/methods.js';
 
+Template.city.onRendered(function() {
+  var template = Template.instance();
+  Meteor.setTimeout(function(){
+    Modules.client.createNewCity( { form: "#cityForm", template: template} );
+  }, 1000);
+});
+
 
 export const  AddCity = React.createClass({
 

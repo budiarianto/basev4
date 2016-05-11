@@ -1,0 +1,88 @@
+<template name="memberEdit">
+	{{#if Template.subscriptionsReady}}
+		{{#if foundMember}}
+			{{#with foundMember}}
+			<div class="gap-bottom-small"></div>
+			<form id="memberForm" class="form-group">
+				<div class="row">
+					<div class="col-sm-3">
+					</div>
+					<div class="col-sm-6">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label for="fullname">Full Name</label>
+									<div class="form-group">
+										<input type="text" name="fullname" id="fullname" class="form-control" placeholder="Full Name" value="{{fullname}}">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label for="emailAddress">Email Address</label>
+									<div class="form-group">
+										<input type="email" name="emailAddress" id="emailAddress" class="form-control" placeholder="Email Address" value="{{emails}}" disabled />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label for="mobileNumber">Mobile Number</label>
+									<div class="form-group">
+										<input type="text" name="mobileNumber" id="mobileNumber" class="form-control" placeholder="Mobile Number" value="{{mobileNumber}}">
+									</div>
+								</div>
+							</div>
+							<!-- <div class="col-xs-12">
+								<div class="form-group">
+									<label for="mobileNumber">Member Type</label>
+									<div class="form-group">
+										<input type="text" name="memberType" id="memberType" class="form-control" placeholder="Member Type" value="{{memberType}}">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label for="mobileNumber">Role</label>
+									<div class="form-group">
+										<input type="text" name="memberRole" id="memberRole" class="form-control" placeholder="Role" value="{{memberRole}}">
+									</div>
+								</div>
+							</div> -->
+							<!-- <div class="col-xs-12">
+								<div class="form-group">
+									<label for="mobileNumber">Status</label>
+									<div class="form-group">
+										<input type="text" name="memberStatus" id="memberStatus" class="form-control" placeholder="Status" value="{{memberStatus}}">
+										<select name="memberStatus" class="form-control memberStatus">
+						                    <option value="Active">Active</option>
+						                    <option value="Inactive">Inactive</option>
+						                    <option value="Banned">Banned</option>
+						                    <option value="Deleted">Deleted</option>
+						                </select>
+									</div>
+								</div>
+							</div> --> 
+							<input type="hidden" name="memberId" value="{{userId}}" />
+							<div class="col-xs-12">
+								<div class="form-group btn-group btn-group-justified">
+									<div class="btn-group" role="group">
+										<input type="button" class="btn btn-danger" id="cancel" value="Cancel">
+									</div>
+									<div class="btn-group" role="group">
+										<input type="submit" class="btn btn-primary" value="Save">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+					</div>
+				</div>
+			</form>
+			{{/with}}
+		{{/if}}
+	{{else}}
+		&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>

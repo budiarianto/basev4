@@ -1,0 +1,182 @@
+<template name="bookingList">
+	{{#if Template.subscriptionsReady}}
+		 <h3 class="text-thin text-din hidden-xs">Booking List</h3>
+		<nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand text-din visible-xs">Booking List</a>
+	    </div>
+	    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+	    	<ul class="nav navbar-nav">
+	    		<li>
+	    			<a href="/booking" ><span class="glyphicon glyphicon-plus"></span> Add New</a>
+	    		</li>
+	    		<li>
+					<form name="searchForm" class="navbar-form navbar-left" >
+				        	<div class="form-inline">
+					            <div class="form-group">
+					                <label for="status">Booking Status </label>
+					                <select name="status" class="form-control bookingStatus">                
+					                    <option value="undefined">All</option>
+					                    <option value="Open">Open</option>
+					                    <option value="Requesting">Requesting</option>
+					                    <option value="Waiting">Waiting</option>
+					                    <option value="Confirmed">Confirmed</option>
+					                    <option value="Paid">Paid</option>
+<!-- 					                    <option value="closed">Closed</option> -->
+<!-- 					                    <option value="canceled">Canceled</option> -->
+					                </select>
+					            </div>
+					             <div class="form-group">
+					            	<label for="fromDate">&nbsp;&nbsp;Flight From</label>
+				                	<div class="form-group">
+										<div class='input-group date' id='fromDate'>
+											<input type='text' placeholder="DD/MM/YYYY" size="13" class="form-control fromDate" name="fromDate"/>
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+					            </div>
+					            <div class="form-group">
+					            	<label for="thruDate">&nbsp;&nbsp;Thru</label>
+				                	 <div class="form-group">
+										<div class='input-group date' id='thruDate'>
+											<input type='text' placeholder="DD/MM/YYYY" size="13" class="form-control thruDate" name="thruDate"/>
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+					            </div>
+					            <div class="form-group">
+					            	<label for="keyword">&nbsp;&nbsp;Search </label>
+				                	 <input id="keyword" type="text" class="form-control" placeholder="Enter Keywords">
+					            </div>
+				            </div>
+				        </form>
+	    		</li>
+	    		
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+		{{# if bookings}}
+        <div class="table-responsive sequenceRow">          
+          <table id="tableBooking" class="table table-hover tablesorter">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Booking Code</th>
+                <th>Booked By</th>
+                <th>Pax</th>
+                <th>Date</th>
+                <th>Time</th>
+<!--                 <th>From</th> -->
+                <th>Departure</th>
+<!--                 <th>To</th> -->
+                <th>Arrival</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+           		{{#each bookings}}
+                  {{> BookingData}}
+                 {{/each}}
+            </tbody>
+            </table>
+            <table class="table table-hover">
+            <thead>
+            </thead>
+            <tbody>
+            	<!-- SUBTOTAL -->
+			      <tr>
+			       	<td class="groupTitle"><h4 class="text-din">Sub Total: {{subTotal}}</h4></td>
+			    	<td></td>
+			    	<td></td>
+			        <td></td>
+			    	<td></td>
+			    	<td></td>
+			    	<td></td>
+			    	<td></td>
+			    	<td></td>
+			    	<td></td>
+			        <td></td>
+			        <td></td>
+			      </tr>
+            </tbody>
+			<div class="clearfix"></div>
+          </table>
+        </div>
+        {{else}}
+			<label>There is no booking order to follow up</label>
+		{{/if}}
+         <div class="clearfix"></div>
+          <!-- {{> toolbarBooking}} -->
+   	{{else}}
+		&nbsp;&nbsp;&nbsp;Loading...
+	{{/if}}
+</template>
+<template name="BookingData">
+    <tr>
+        <td></td>
+        <td class="booking">{{bookingCode}}</td>
+        <td>{{billingInfo.fullName}}</td>
+        <td>{{pax}}</td>
+        <td>{{flightDateString}}</td>
+        <td>{{flightTimeString}}</td>
+<!--         <td><div class="list">{{departureCity}}</div></td> -->
+        <td>{{departureLocation}}</td>
+<!--         <td><div class="list">{{destinationCity}}</div></td> -->
+        <td>{{destinationLocation}}</td>
+         <td class="text-right">{{priceString}}</td>
+         <td class="status">
+         	{{#if isConfirmed}}
+         		<span class="badge badge-success"><span class="glyphicon glyphicon-check"></span></span>
+         	{{else}}
+         		{{#if isOpen}}
+         			<span class="badge badge-default" title="{{status}}"><span class="glyphicon glyphicon-edit" style="margin-bottom: 5px;"></span></span>
+         		{{else}}
+         			{{#if isWaiting}}
+         				<span class="badge badge-warning" title="{{status}}"><span class="glyphicon glyphicon-share" style="margin-bottom: 5px;"></span></span>
+         			{{else}}
+         				{{#if isPaid}}
+         					<span class="badge badge-info" title="{{status}}"><span class="glyphicon glyphicon-ok-circle" style="margin-bottom: 5px;"></span></span>
+         				{{else}}
+         					{{#if isClosed}}
+         					<span class="badge badge-primary" title="{{status}}"><span class="glyphicon glyphicon-ok" style="margin-bottom: 5px;"></span></span>
+         					{{else}}
+         						<span class="badge badge-danger" title="{{status}}"><span class="glyphicon glyphicon-remove" style="margin-bottom: 5px;"></span></span>
+         					{{/if}}
+         				{{/if}}
+         			{{/if}}
+         		{{/if}}
+         	{{/if}}
+         	 &nbsp;{{status}}
+         </td>
+<!--          <td> -->
+<!--          {{#if isConfirmed}} -->
+<!--          		<button type="button" class="btn btn-primary btn-sm close_transaction">Close</button> -->
+<!--             	<button type="button" class="btn btn-danger btn-sm cancel">Cancel</button> -->
+<!--          	{{else}} -->
+<!--          		<button type="button" class="btn btn-danger btn-sm cancel">Cancel</button> -->
+<!--          	{{/if}} -->
+            
+<!--         </td> -->
+      </tr>
+</template>
+<template name="toolbarBooking">
+    <center>
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-triangle-left"></span>&nbsp;Back
+          </button>
+     <!--      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-bell"></span>&nbsp;Notify All</button> -->
+    </center>
+</template>

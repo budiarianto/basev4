@@ -1,0 +1,3 @@
+Template.orderDetail.onRendered(function() {
+
+});

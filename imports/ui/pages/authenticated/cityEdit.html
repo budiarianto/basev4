@@ -1,0 +1,67 @@
+<template name="cityEdit">
+	{{#if Template.subscriptionsReady}}
+		{{#with cities}}
+		<div class="row">
+			<div class="col-xs-12">
+				<form id="cityForm" class="form-inline">
+					<h3 class="text-thin text-din">Edit City</h3>
+					<div class="form-group">
+						<label for="sequence">Sequence #</label>
+						<input type="number" class="form-control" placeholder="Sequence number" min="0" id="sequence" name="sequence" value="{{sequence}}">
+					</div>
+					<div class="form-group">
+						<label for="city">&nbsp;City</label>
+						<input type="text" class="form-control" placeholder="City name" id="city" name="city" value="{{city}}">
+					</div>
+					<div class="form-group">
+						<label for="country">&nbsp;Country</label>
+						<input type="text" class="form-control" placeholder="Country name" id="country" name="country" value="{{country}}">
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-12">
+				<div class="gap-bottom-small"></div>
+				<div class="buttonCenter">
+					<div class="form-inline">
+						<input type="button" class="btn btn-default" id="cancel" value="Cancel">
+						<input type="button" class="btn btn-primary" id="save" value="Save">
+						{{#unless helipads}}
+						<input type="button" class="btn btn-danger"  id="delete" value="Delete">
+						{{/unless}}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+			{{#if helipads}}
+				<h4 class="text-thin text-din">Helipad List</h4>
+				<hr class="styleGradient">
+				<div class="table-responsive">          
+		          <table class="table table-hover">
+		            <thead>
+		              <tr>
+		                <th>ID</th>
+		                <th>Helipad Name</th>
+		                <th>Latitude</th>
+		                <th>Longitude</th>
+		                <th>City</th>
+		                <th>Zip Code</th>
+		                <th>Country</th>
+		                <th>Status</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		            	{{#each helipads}}
+		                	 {{> helipadData}}
+		                {{/each}}
+		            </tbody>
+		            <div class="clearfix"></div>
+		          </table>
+		        </div>
+			{{/if}}
+			</div>
+		</div>
+		{{/with}}
+		{{else}}
+			{{> loading}}
+		{{/if}}
+</template>

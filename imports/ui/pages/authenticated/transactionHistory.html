@@ -1,0 +1,230 @@
+<template name="transactionHistory">
+        <h3 class="text-thin text-din">Transaction History List</h3>
+        <div class="gap-bottom-small"></div>
+        <form name="searchForm" class="form-inline">
+            <div class="form-group">
+                <label for="status">Order Status </label>
+                <select name="status" type="text" class="form-control">
+                    <option value="Closed">Closed</option>
+                    <option value="Canceled">Canceled</option>
+                </select>
+            </div>
+            <div class="form-group">
+               <label for="flightDate">&nbsp;&nbsp;Flight Date </label>
+                <input type="text" class="form-control" placeholder="Select flight date" id="flightDate">  
+            </div>
+            <div class="form-group">
+                <label for="flightDateTo">&nbsp;&nbsp;Thru Date</label>
+                <input type="text" class="form-control" placeholder="Select thru date" id="flightDateTo">  
+            </div>
+            <div class="form-group">
+                <label for="keyword">&nbsp;&nbsp;Search By </label>
+                <input name="keyword" type="text" class="form-control" placeholder="Keyword">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Go</button>
+           </div>
+            <div class="gap-bottom-small"></div>
+        </form>
+        <div class="table-responsive">          
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tour Code</th>
+                <th>Order No</th>
+                <th>Ordered By</th>
+                <th>Flight Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                 {{> TransactionData}}
+            </tbody>
+            <div class="clearfix"></div>
+          </table>
+        </div>
+         <div class="clearfix"></div>
+          <!-- {{> toolbarOrder}} -->
+</template>
+<template name="TransactionData">
+    <tr>
+        <td>1</td>
+        <td><a href="eventDetail">T/BDG/001/II-16</a></td>
+        <td><a href="orderDetail">R01927536</a></td>
+        <td class="popupDetail">Rio Adrian
+            <div id="popover-content" class="hide">
+                    <div class="gap-bottom-small"></div>
+                    <center>
+                        <h3 class="text-thin text-din">Rio Adrian</h3>
+                        <img src="images/user_icon.jpg">
+                    </center>
+                    
+                    <h3 class="text-din">Favourite Places</h3>
+                    <div class="list-group">
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-home"></span>&nbsp;Home
+                            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+                        </div>
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-briefcase"></span>&nbsp;Work
+                            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+                        </div>
+                    </div>
+            </div>
+        </td>
+        <td>
+            <div class="list">28-02-2016</div>
+            <div class="list-edit" style="display: none;">
+                <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+            </div>
+        </td>
+        <td>6,000,000</td>
+        <td><span class="badge badge-primary"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;closed</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><a href="eventDetail">T/BDG/001/II-16</a></td>
+        <td><a href="orderDetail">R01927599</a></td>
+        <td class="popupDetail">Ary Setiawan
+            <div id="popover-content" class="hide">
+                    <div class="gap-bottom-small"></div>
+                    <center>
+                        <h3 class="text-thin text-din">Ary Setiawan</h3>
+                        <img src="images/user_icon.jpg">
+                    </center>
+                    
+                    <h3 class="text-din">Favourite Places</h3>
+                    <div class="list-group">
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-home"></span>&nbsp;Home
+                            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+                        </div>
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-briefcase"></span>&nbsp;Work
+                            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+                        </div>
+                    </div>
+            </div>
+        </td>
+        <td>
+            <div class="list">28-02-2016</div>
+            <div class="list-edit" style="display: none;">
+                <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+            </div>
+        </td>
+        <td>2,500,000</td>
+        <td><span class="badge badge-primary"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;closed</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><a href="eventDetail">T/BDG/001/II-16</a></td>
+        <td><a href="orderDetail">R01927572</a></td>
+        <td class="popupDetail">Wicaksono
+            <div id="popover-content" class="hide">
+                    <div class="gap-bottom-small"></div>
+                    <center>
+                        <h3 class="text-thin text-din">Wicaksono</h3>
+                        <img src="images/user_icon.jpg">
+                    </center>
+                    
+                    <h3 class="text-din">Favourite Places</h3>
+                    <div class="list-group">
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-home"></span>&nbsp;Home
+                            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+                        </div>
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-briefcase"></span>&nbsp;Work
+                            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+                        </div>
+                    </div>
+            </div>
+        </td>
+        <td>
+            <div class="list">28-02-2016</div>
+            <div class="list-edit" style="display: none;">
+                <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+            </div>
+        </td>
+        <td>1,075,000</td>
+        <td><span class="badge badge-primary"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;closed</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><a href="eventDetail">T/BDG/001/II-16</a></td>
+        <td><a href="orderDetail">R01927511</a></td>
+        <td class="popupDetail">Ivan Stanton
+            <div id="popover-content" class="hide">
+                    <div class="gap-bottom-small"></div>
+                    <center>
+                        <h3 class="text-thin text-din">Ivan Stanton</h3>
+                        <img src="images/user_icon.jpg">
+                    </center>
+                    
+                    <h3 class="text-din">Favourite Places</h3>
+                    <div class="list-group">
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-home"></span>&nbsp;Home
+                            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+                        </div>
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-briefcase"></span>&nbsp;Work
+                            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+                        </div>
+                    </div>
+            </div>
+        </td>
+        <td>
+            <div class="list">29-02-2016</div>
+            <div class="list-edit" style="display: none;">
+                <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+            </div>
+        </td>
+        <td>1,350,000</td>
+        <td><span class="badge badge-primary"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;closed</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><a href="eventDetail">T/BDG/001/II-16</a></td>
+        <td><a href="orderDetail">R02018273</a></td>
+        <td class="popupDetail">Ladeefa Syarief
+            <div id="popover-content" class="hide">
+                    <div class="gap-bottom-small"></div>
+                    <center>
+                        <h3 class="text-thin text-din">Ladeefa Syarief</h3>
+                        <img src="images/user_icon.jpg">
+                    </center>
+                    
+                    <h3 class="text-din">Favourite Places</h3>
+                    <div class="list-group">
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-home"></span>&nbsp;Home
+                            <p class="text-gray text-thin text-descrition-with-icon">Jalan Raya Perjuangan kav 20 Kebon Jeruk Jakarta Barat</p>
+                        </div>
+                        <div class="list-group-item no-radius">
+                            <span class="glyphicon glyphicon-briefcase"></span>&nbsp;Work
+                            <p class="text-gray text-thin text-descrition-with-icon">Add Work Address</p>
+                        </div>
+                    </div>
+            </div>
+        </td>
+        <td>
+            <div class="list">29-02-2016</div>
+            <div class="list-edit" style="display: none;">
+                <input type="text" class="form-control form-control-plain datepicker" id="my-datepicker" placeholder="Select Date">
+            </div>
+        </td>
+        <td>8,624,000</td>
+        <td><span class="badge badge-primary"><span class="glyphicon glyphicon-ok"></span></span>&nbsp;closed</td>
+      </tr>
+</template>
+<!-- <template name="toolbarTransaction">
+    <center>
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-triangle-left"></span>&nbsp;Back
+          </button>
+          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-bell"></span>&nbsp;Notify All</button>
+    </center>
+</template> -->

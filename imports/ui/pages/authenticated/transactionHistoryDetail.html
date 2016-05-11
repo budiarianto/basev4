@@ -1,0 +1,72 @@
+<template name="transactionHistoryDetail">
+    <p class="text-gray text-thin less-margin">
+        <span class="glyphicon glyphicon-stop green-start"></span>From: 
+        <span class="text-black">Kemang Village</span>
+    </p>
+    
+    <p class="text-gray text-thin">
+        <span class="glyphicon glyphicon-stop red-stop"></span>To: 
+        <span class="text-black">Siloam Hospital Kebon Jeruk</span>
+    </p>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="map-container-summary"> 	
+			    {{> googleMap name="map" options=mapOptions}}
+			</div>
+		   
+            <div class="row">
+                <div class="col-xs-4 rate-container">
+                    <h4 class="text-din"><span class="text-gray">Flight Rate</span></h4>
+                    <div class="clearfix"></div>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>    
+                </div>
+
+                <div class="col-xs-4">
+                    <center>
+                        <img src="images/operator.jpg" width="60" class="img-circle bordered" style="margin: 5px;">
+                    </center>
+                    <h4 class="text-din text-center">Operator: Evi</h4>
+                </div>
+
+                <div class="col-xs-4">
+                    <h4 class="text-din"><span class="text-gray pull-right">Trip Total</span></h4>
+                    <div class="clearfix"></div>
+                    <h4 class="pull-right text-din">IDR 12.000.000</h4>
+                </div>    
+            </div>
+        </div>
+    </div>
+    
+    <div class="gap-bottom-small"></div>
+    
+    <div class="row">
+        <h4 class="text-center text-din text-gray text-uppercase">Helicity Receipt</h4>
+        <div class="col-xs-12">
+            <table class="table table-receipt">
+                <tr>
+                    <td>Distance</td>
+                    <td class="pull-right">40.9 KM</td>
+                </tr>
+                <tr>
+                    <td>Duration</td>
+                    <td class="pull-right">6 minutes</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-gray">
+                        Charged:
+                    </td>
+                </tr>
+                <tr>
+                    <td>[ VISA ] Personal **** 980</td>
+                    <td class="pull-right">IDR 12.000.000</td>
+                </tr>
+            </table>
+        </div>    
+    </div>
+    
+</template>

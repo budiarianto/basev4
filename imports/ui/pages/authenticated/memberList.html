@@ -1,0 +1,80 @@
+<template name="memberList">
+{{#if Template.subscriptionsReady}}
+ <div class="gap-bottom-small"></div>
+    <h3 class="text-thin text-din">Member List</h3>
+   <nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand text-din visible-xs">Member List</a>
+	    </div>
+	    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+	    	<ul class="nav navbar-nav">
+	    		<li>
+	    			<a href="/member" ><span class="glyphicon glyphicon-plus"></span> Add New Member</a>
+	    		</li>
+	    		<li>
+	    			<form name="searchForm" class="navbar-form navbar-left" >
+	    				<div class="form-inline">
+				            <div class="form-group">
+				                <label for="status">Member Status </label>
+				                <select name="status" class="form-control memberStatus">                
+				                    <option value="Active">Active</option>
+				                    <option value="Inactive">Inactive</option>
+				                    <option value="Banned">Banned</option>
+				                </select>
+				            </div>
+				            <div class="form-group">
+				            	<label for="keyword">&nbsp;Search</label>
+			                	<input type="text" id="keyword" class="form-control" placeholder="Search for...">
+							</div>
+						</div>
+				   </form>
+	    		</li>
+	    		
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+    {{#if memberClientList }}
+    <div class="table-responsive">          
+      <table id="tableMember" class="table table-hover tablesorter">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <!-- <th>User Id</th> -->
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Registered Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each memberClientList}}
+          <tr>
+            <td>{{incremented @index}}</td>
+            <!-- <td>{{_id}}</td> -->
+            <td><a href="{{pathFor 'userDashboard'}}/{{userId}}">{{fullname}}</a></td>
+            <td>{{emails}}</td>
+            <td>{{mobileNumber}}</td>
+            <td>{{formatDate createdDate}}</td>
+            <td>{{memberStatus}}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+        <div class="clearfix"></div>
+      </table>
+    </div>
+    {{else}}
+     <label>Member Not Found</label>
+    {{/if}}
+{{else}}
+    {{> loading }}
+{{/if}}
+</template>

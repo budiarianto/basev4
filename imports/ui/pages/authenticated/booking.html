@@ -1,0 +1,142 @@
+<template name="booking">
+	{{#if Template.subscriptionsReady}}
+		<form id="bookingForm" class="form-group">
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<h3 class="text-thin text-din">{{judul}}</h3>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="flightDate">Flight Date Time</label>
+								<div class="form-group">
+									<div class='input-group date' id='flightDate'>
+										<input type='text' placeholder="DD/MM/YYYY HH:mm"  class="form-control" name="flightDate"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12">
+									<div class="form-group">
+										<label for="user">Member</label>
+										<div class="input-group" id="fullName">
+										  <input type="text" class="form-control" placeholder="member full name" id="fullName" name="fullName" readonly>
+										  <input type="hidden" class="form-control" id="userId" name="userId">
+									      <span class="input-group-addon" data-toggle="modal" data-target="#memberModal" style="cursor: pointer;" id="searchUser">
+									        <span class="glyphicon glyphicon-user"></span>
+									      </span>
+									    </div>
+									</div>
+								</div>
+						<!-- <div class="col-xs-12">
+							<div class="form-group">
+								<label for="flightTime">Time</label>
+								<div class="form-group">
+									<div class='input-group date' id='flightTime'>
+										<input type='text' placeholder="HH:MM"  class="form-control" name='flightTime'/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-time"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for=departureCity>Departure City</label>
+								<select  class="form-control" name="departureCity" id="departureCity">
+									<option value="undefined">Please select city</option>
+									{{#each departureCity}}
+									<option value="{{city}}">{{city}}</option>
+									{{/each}}
+								</select>
+							</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="departureCollapse">
+								<div class="form-group">
+									<label for=departureLocation>Departure Location</label>
+									{{#if departureLocation}}
+									<select  class="form-control" name="departureLocation" id="departureLocation">
+										<option value="undefined">Please select location</option>
+										{{#each departureLocation}}
+										<option value="{{_id}}">{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="departureLocation-not-found" class="error" for="departureLocation">departure location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<div class="form-group">
+									<label for=destinationCity>Destination City</label>
+									<select  class="form-control" name="destinationCity" id="destinationCity">
+										{{#if destinationCity}}
+											<option value="undefined">Please select city</option>
+											{{#each destinationCity}}
+											<option value="{{city}}">{{city}}</option>
+											{{/each}}
+										{{else}}
+											<option value="undefined">Departure city not registered</option>
+										{{/if}}
+									</select>
+								</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="destinationCollapse">
+								<div class="form-group">
+									<label for=destinationLocation>Destination Location</label>
+									{{#if destinationLocation}}
+									<select  class="form-control" name="destinationLocation" id="destinationLocation">
+										<option value="undefined">Please select location</option>
+										{{#each destinationLocation}}
+										<option value="{{arrivalId}}">{{arrivalLocation}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="destinationLocation-not-found" class="error" for="destinationLocation">destination location not found.</label>
+									{{/if}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="pax">Pax</label>
+								<input type="number" class="form-control" placeholder="Number of passengers" id="pax" min="1" max="4" name="pax">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="descriptions">Notes</label>
+								<textarea id="notes" class="form-control" name="notes" rows="2" placeholder="Booking notes (max 30 chars)" maxlength="30">{{notes}}</textarea>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group pull-right">
+								<h4 class="text-din text-thin" >Total: {{amountString}}</h4>
+								<input type="hidden" id="fare" name="fare" value="{{amount}}">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group buttonCenter">
+								<input type="button" class="btn btn-default" id="cancel" value="Cancel">
+								<input type="submit" class="btn btn-primary" value="Save">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+		</form>
+		{{> memberModal}}
+		{{else}}
+			&nbsp;&nbsp;Loading...
+		{{/if}}
+</template>

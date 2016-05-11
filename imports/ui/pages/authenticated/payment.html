@@ -1,0 +1,40 @@
+<template name="payment">
+    <h3 class="text-thin">Hello <span>John Doe</span></h3>
+    <p class="text-thin">
+        Here is your payment information and cash balance.
+    </p>
+    <ul class="list-group">
+        <li class="list-group-item">Credit Card (visa) <span class="pull-right">****** 8702</span></li>
+        <li class="list-group-item">Cash Balance : <span class="pull-right">IDR 200.000.000</span></li>
+    </ul>
+    
+        <form action="" method="POST" id="payment-form">
+      <label>Card Number</label>
+      <input id="card-number" size="20" type="text" value="4811111111111114"/>
+      <br />
+
+      <label>Expiration (MM/YYYY)</label>
+      <input id="card-expiry-month" size="2" type="text" value="01"/>
+      <span> / </span>
+      <input id="card-expiry-year" size="4" type="text" value="2020"/>
+      <br />
+      
+      <label>CVV</label>
+      <input id="card-cvv" size="3" type="password" value="123"/>
+      <br />
+      
+      <!-- Additional Field -->
+      <label>Harga</label>
+      <input id="price" name="price" type="text" value="200500"/>
+      <label>Order#</label>
+	  <input id="orderId" name="orderId" type="text" value="{{orderId}}"/>
+      <input id="transactionId" name="transactionId" type="text" value="{{transactionId}}"/>
+
+      <input id="token-id" name="token-id" type="hidden" />
+      <button id="submit-button" type="submit">Pay</button>
+      <button type="button" id="capture">Capture</button>
+      <button type="button" id="status">Status</button>
+      <button type="button" id="approve">Approve</button>
+      <button type="button" id="cancel">Cancel</button>
+    </form>
+</template>

@@ -1,0 +1,87 @@
+<template name="cityList">
+	{{#if Template.subscriptionsReady}}
+	<h3 class="text-thin text-din hidden-xs">City List</h3>
+	<nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-form">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand text-din visible-xs">City List</a>
+	    </div>
+	    <div id="navbar-collapse-form" class="collapse navbar-collapse">
+	    	<ul class="nav navbar-nav">
+	    		<li>
+	    			<a href="/city" ><span class="glyphicon glyphicon-plus"></span> Add New City</a>
+	    		</li>
+	    		<li>
+	    			<a id="repairIndex" class="btn-loading" style="cursor: pointer;">
+	    			<span><span class="glyphicon glyphicon-sort-by-attributes"></span> Repair Index</span>
+	    			<div class="spinner">
+			         <div class="bounce1"></div>
+			         <div class="bounce2"></div>
+			         <div class="bounce3"></div>
+			        </div>
+	    			</a>
+	    		</li>
+	    		<li>
+					<form name="searchForm" class="navbar-form navbar-left" >
+				        	<div class="form-inline">
+					            <div class="form-group">
+					            	<label for="keyword">Search</label>
+				                	<input type="text" id="keyword" class="form-control" placeholder="Search for...">
+								</div>
+				            </div>
+				        </form>
+	    		</li>
+	    		
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+		{{# if cities}}
+        <div class="table-responsive">          
+          <table id="tableCity" class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>City</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+           		{{#each cities}}
+                  {{> CityData}}
+                 {{/each}}
+			</tbody>
+			<div class="clearfix"></div>
+          </table>
+        </div>
+        {{else}}
+			<label>There is no city to show</label>
+		{{/if}}
+         <div class="clearfix"></div>
+          <!-- {{> toolbarCity}} -->
+   	{{else}}
+		{{> loading}}
+	{{/if}}
+</template>
+<template name="CityData">
+    <tr>
+        <td>{{sequence}}</td>
+        <td>{{city}}</td>
+        <td>{{country}}</td>
+        
+      </tr>
+</template>
+<!-- <template name="toolbarCity"> -->
+<!--     <center> -->
+<!--           <button type="button" class="btn btn-default"> -->
+<!--             <span class="glyphicon glyphicon-triangle-left"></span>&nbsp;Back -->
+<!--           </button> -->
+<!--           <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-bell"></span>&nbsp;Notify All</button> -->
+<!--     </center> -->
+<!-- </template> -->

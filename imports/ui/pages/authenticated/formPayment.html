@@ -1,0 +1,89 @@
+<template name="formTransferPayment">
+<div class="collapse" id="formTransferPayment">
+		<form id="frmTransferPayment" class="form-group">
+		 	<div class="form-group">
+				<label for=prefix>Bank</label>
+				<select  class="form-control" name="bank" id="bank">
+					<option value="undefined">Please insert bank</option>
+					<option value="BCA">BCA</option>
+					<option value="Mandiri">Mandiri</option>
+					<option value="BNI">BNI</option>
+				</select>
+			</div>	
+		 	<div class="form-group">
+				<label for="fname">Full Name</label>
+				<input type="text" class="form-control" placeholder="Full Name" id="paymentFullName" name="paymentFullName">
+			</div>
+		 	<div class="form-group">
+				<label for="accNo">Account Number</label>
+				<input type="text" class="form-control" placeholder="Account number" id="accNo" name="accNo">
+			</div>
+		 	<div class="form-group">
+				<label for="totalAmount">Total</label>
+				<input type="text" class="form-control" value="{{amountString}}" id="totalAmount" name="totalAmount" readonly>
+				<input type="hidden" class="form-control" value="{{amount}}" name="amount">
+			</div>
+<!-- 		 	<div class="form-group"> -->
+<!-- 				<label for="totalPayment">Payment ( {{paymentString}} )</label> -->
+<!-- 				<input type="text" class="form-control" placeholder="Total Payment" id="totalPayment" name="totalPayment" value="{{payment}}"> -->
+<!-- 			</div> -->
+			<div class="form-group">
+				<div class="btn-group">
+					<input type="button" class="btn btn-default resetForm" id="cancelTrfPayment" value="Cancel" data-toggle="collapse" data-target="#formTransferPayment" aria-expanded="false" aria-controls="formTransferPayment">
+					<input type="submit" class="btn btn-success" value="Confirm Payment">
+				</div>
+			</div>
+		</form>  
+	</div>	
+</template>
+<template name="formCCPayment">
+<div class="collapse" id="formCCPayment">
+		<form id="frmCCPayment" class="form-group">
+		 	<div class="form-group">
+				<label for="principal">Credit Card Type</label>
+				<select  class="form-control" name="principal" id="principal">
+					<option value="undefined">Please insert bank</option>
+					<option value="Visa">Visa</option>
+					<option value="Master">Master</option>
+					<option value="American Express">American Express</option>
+					<option value="JCB">JCB</option>
+				</select>
+			</div>	
+		 	<div class="form-group">
+				<label for="paymentCCFullName">Full Name</label>
+				<input type="text" class="form-control" placeholder="Full Name" value="{{billingInfo.fullName}}" id="paymentCCFullName" name="paymentCCFullName" readonly>
+			</div>
+		 	<div class="form-group">
+				<label for="cardNo">Card Number</label>
+				<input type="text" class="form-control" placeholder="Card number" id="cardNo" name="cardNo">
+			</div>
+		 	<div class="form-group">
+				<label for="expMonth">Expiration (MM/YYYY)</label>
+				<div class="form-inline">
+					<input type="text" class="form-control" size="3" maxlength="2" placeholder="MM" id="expMonth" name="expMonth">
+					<input type="text" class="form-control" size="5" maxlength="4" placeholder="YYYY" id="expYear" name="expYear">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="cvv">CVV</label>
+				<input type="password" class="form-control" size="4" maxlength="3" placeholder="CVV" id="cvv" name="cvv">
+			</div>
+			<div class="form-group">
+				<label for="totalAmount">Total</label>
+				<input type="text" class="form-control" value="{{amountString}}" id="totalAmount" name="totalAmount" readonly>
+				<input type="hidden" class="form-control" value="{{amount}}" name="amount" id="amount">
+				 <input id="token-id" name="token-id" type="hidden" />
+			</div>
+<!-- 		 	<div class="form-group"> -->
+<!-- 				<label for="pax">Payment ( {{paymentString}} )</label> -->
+<!-- 				<input type="text" class="form-control" placeholder="Total Payment" id="totalPayment" name="totalPayment" value="{{payment}}"> -->
+<!-- 			</div> -->
+			<div class="form-group">
+				<div class="btn-group">
+					<input type="button" class="btn btn-default resetForm" id="cancelCCPayment" value="Cancel" data-toggle="collapse" data-target="#formCCPayment" aria-expanded="false" aria-controls="formCCPayment">
+					<input type="submit" class="btn btn-success" id="submitCCPayment" value="Confirm Payment">
+				</div>
+			</div>
+		</form>  
+	</div>	
+</template>

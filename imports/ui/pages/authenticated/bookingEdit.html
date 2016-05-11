@@ -1,0 +1,475 @@
+<template name="bookingEdit">
+	{{#if Template.subscriptionsReady}}
+		{{#with booking}}
+		<div class="row">
+			<div class="col-md-6">
+				<h3 class="text-thin text-din">{{judul}}</h3>
+				<h4 class="text-thin text-din">Current status: {{status}}</h4>
+				<form id="bookingForm" class="form-group">
+					<div class="row">
+						<div class="col-sm-12 col-xs-12" style="padding: 0px;padding-left: 15px;">
+							<div class="col-sm-4 col-xs-12 well wrapperCenter" style="margin-right: 15px;">
+									<div class="qrcodeTable imageCenter"></div>
+							</div>
+							<div class="col-sm-8 col-xs-12" style="padding: 0px; padding-right:15px;">
+								<div class="col-xs-12"  style="padding: 0px;">
+									<div class="form-group">
+										{{#if isReadonly}}
+										<div class="form-group">
+											<label for="flightDate">Flight Date</label>
+											<input type="text" class="form-control"  name="flightDate" value="{{flightDateString}}" readonly>
+										</div>
+										{{else}}
+										<label for="flightDate">Flight Date</label>
+										<div class="form-group">
+											<div class='input-group date' id='flightDate'>
+												<input type='text' placeholder="DD/MM/YYYY HH:mm"  class="form-control" name="flightDate" value="{{flightDateString}}"/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+										{{/if}}
+									</div>
+								</div>
+								<div class="col-xs-12" style="padding: 0px;">
+										{{#if isReadonly}}
+										<div class="form-group">
+											<label for="user">Booked By</label>
+											<input type="text" class="form-control" placeholder="member full name" id="fullName" name="fullName" value="{{billingInfo.fullName}}" readonly>
+										</div>
+										{{else}}
+										<div class="form-group">
+											<label for="user">Booked By</label>
+											<div class="input-group" id="fullName">
+										      <input type="text" class="form-control" placeholder="member full name" id="fullName" name="fullName" value="{{billingInfo.fullName}}" readonly>
+										      <input type="hidden" class="form-control" id="userId" name="userId" value="{{userId}}">
+										      <span class="input-group-addon" data-toggle="modal" data-target="#memberModal" style="cursor: pointer;" id="searchUser">
+										        <span class="glyphicon glyphicon-user"></span>
+										      </span>
+										     </div>
+										</div>
+									{{/if}}
+								</div>
+								<!-- <div class="col-xs-12"  style="padding: 0px;">
+									<div class="form-group">
+										<label for="flightTime">Time</label>
+										<div class="form-group">
+											<div class='input-group date' id='flightTime'>
+												<input type='text' placeholder="HH:MM"  class="form-control" name='flightTime'  value="{{flightTimeString}}"/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-time"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for=departureCity>Departure City</label>
+								<select  class="form-control" name="departureCity" id="departureCity" {{isReadonly}}>
+									<option value="undefined">Please select departure city</option>
+									{{#each departureCity}}
+									<option value="{{city}}">{{city}}</option>
+									{{/each}}
+								</select>
+							</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="departureCollapse">
+								<div class="form-group">
+									<label for=departureLocation>Departure Location</label>
+									{{#if departureLocation}}
+									<select  class="form-control" name="departureLocation" id="departureLocation" {{isReadonly}}>
+										<option value="undefined">Please select departure location</option>
+										{{#each departureLocation}}
+										<option value="{{_id}}">{{name}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="departureLocation-not-found" class="error" for="departureLocation">departure location not found.</label>
+									{{/if}}
+									{{#unless hideLoading}}
+										{{> loading}}
+									{{/unless}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<div class="form-group">
+									<label for=destinationCity>Destination City</label>
+									<select  class="form-control" name="destinationCity" id="destinationCity" {{isReadonly}}>
+										{{#if destinationCity}}
+											<option value="undefined">Please select destination city</option>
+											{{#each destinationCity}}
+											<option value="{{city}}">{{city}}</option>
+											{{/each}}
+										{{else}}
+											<option value="undefined">Destination city not registered</option>
+										{{/if}}
+										{{#unless hideLoading}}
+											{{> loading}}
+										{{/unless}}
+									</select>
+								</div>	
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="destinationCollapse">
+								<div class="form-group">
+									<label for=destinationLocation>Destination Location</label>
+									{{#if destinationLocation}}
+									<select  class="form-control" name="destinationLocation" id="destinationLocation" {{isReadonly}}>
+										<option value="undefined">Please select destination location</option>
+										{{#each destinationLocation}}
+										<option value="{{arrivalId}}">{{arrivalLocation}}</option>
+										{{/each}}
+									</select>
+									{{else}}
+										<label id="destinationLocation-not-found" class="error" for="destinationLocation">destination location not found.</label>
+									{{/if}}
+									{{#unless hideLoading}}
+										{{> loading}}
+									{{/unless}}
+								</div>	
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="pax">Pax</label>
+								<input type="number" class="form-control" placeholder="Number of passengers" id="pax" min="1" max="4" name="pax" value="{{pax}}" {{isReadonly}}>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label for="descriptions">Notes</label>
+								<textarea id="notes" class="form-control" name="notes" rows="2" placeholder="Booking notes (max 30 chars)" maxlength="30" {{isReadonly}}>{{notes}}</textarea>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="pull-right">
+								<h3 class="text-din text-thin" id="total">Total: {{amountString}}</h3>
+								<input type="hidden" id="fare" name="fare" value="{{amount}}" {{isReadonly}}>
+							</div>
+							{{#if isConfirmed}}
+								{{#if ccPayment}}
+								<div class="pull-left">
+									<h3 class="text-din text-thin" id="total">{{payment.paymentType}} Authorized</h3>
+								</div>
+								{{else}}
+								<div class="pull-left">
+									<h3 class="text-din text-thin" id="total">Transfered via {{payment.bank}} - {{payment.accNo}}</h3>
+								</div>
+								{{/if}}
+							{{else}}
+								{{#if isPaid}}
+									{{#if ccPayment}}
+										<div class="pull-left">
+											<h3 class="text-din text-thin" id="total">Paid By: {{payment.principal}}</h3>
+										</div>
+									{{else}}
+										<div class="pull-left">
+											<h3 class="text-din text-thin" id="total">Paid By: Transfer {{payment.bank}} - {{payment.accNo}}</h3>
+										</div>
+									{{/if}}
+								{{else}}
+									{{#if isCanceled}}
+										<!-- this is canceled / refund-->
+										<div class="pull-left">
+										<h3 class="text-din text-thin text-danger" id="total">Transaction Canceled</h3>
+									</div>
+									{{/if}}
+								{{/if}}
+							{{/if}}
+						</div>
+						<div class="col-xs-12">
+							<div class="form-inline">
+									{{#if isConfirmed}}
+										{{#if ccPayment}}
+											<div class="form-group">
+												<input type="button" class="btn btn-default" id="cancel" value="Back">
+												<input type="button" class="btn btn-primary" id="captureCreditCard" data-toggle="modal" data-target="#closeModal" style="cursor: pointer;" value="Paid">
+												<input type="button" class="btn btn-danger" id="cancelCreditCard" data-toggle="modal" data-target="#closeModal" style="cursor: pointer;"  value="Cancel Credit Card">
+											</div>
+										{{/if}}
+									{{else}}
+										{{#if isClosed}}
+											<div class="form-group">
+												<input type="button" class="btn btn-default" id="cancel" value="Back">
+											</div>
+										{{else}}
+											{{#if isPaid}}
+											<div class="form-group">
+												<div class="pull-left">
+													<input type="button" class="btn btn-default" id="cancel" value="Back">
+													<input type="button" class="btn btn-primary" id="closeTransaction" data-toggle="modal" data-target="#closeModal" style="cursor: pointer;" value="Close Transaction">
+												</div>
+												<div class="pull-right buttonRight">
+													<input type="button" class="btn btn-danger" id="refundTransaction" data-toggle="modal" data-target="#closeModal" style="cursor: pointer;" value="Refund">
+												</div>
+											</div>
+											{{else}}
+												{{# if isCanceled}}
+													<div class="form-group">
+														<input type="button" class="btn btn-default" id="cancel" value="Back">
+													</div>
+												{{else}}
+													<div class="form-group">
+														<input type="button" class="btn btn-default" id="cancel" value="Back">
+														<input type="submit" class="btn btn-primary" value="Save">
+													</div>
+													<div class="form-group">
+														{{#unless showAddManifestButton}}
+														<input type="button" class="btn btn-info" id="payment" value="Payment" data-toggle="modal" data-target="#paymentModal" style="cursor: pointer;">
+														{{/unless}}
+														<input type="button" class="btn btn-danger" id="delete" value="Delete Booking" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">
+													</div>
+												{{/if}}
+											{{/if}}
+										{{/if}}
+										
+									{{/if}}
+							</div>
+							
+							
+						</div>
+						</div>
+					</form>
+			</div>
+			<div class="col-md-6">
+				<label for="routes">Passengers &nbsp;&nbsp;</label>
+				{{#if showAddManifestButton}}
+					<button type="button" class="btn btn-success btn-sm" data-toggle="collapse" data-target="#formAddPassengers" aria-expanded="false" aria-controls="formAddPassengers">
+						<span class="glyphicon glyphicon-plus text-thin"></span> Add New Passengers
+					</button>
+				{{/if}}
+				{{> formAddPassengers}}
+				<div class="clear-fix" style="margin-bottom: 10px;"></div>
+		        <div class="table-responsive sequenceRow">  
+		          <table class="table table-hover" id="routes">
+		            <thead>
+		              <tr>
+		                <th>#</th>
+		                <th>Prefix</th>
+		                <th>Full Name</th>
+		                <th>Birth Date</th>
+		                <th>Action</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		            	{{#each booking.manifest}}
+		                	 {{> manifestData}}
+		                {{/each}}
+		                  <tr>
+			                <th></th>
+			                <th></th>
+			                <th></th>
+			                <th></th>
+			                <th></th>
+			              </tr>
+		            </tbody>
+<!-- 			            <div class="clearfix"></div> -->
+		          </table>
+		        </div>
+			</div>
+		</div>
+		{{> closeModal}}
+		{{> deleteModal}}
+		{{> memberModal}}
+		{{> paymentModal}}
+		{{/with}}
+		{{else}}
+			&nbsp;&nbsp;Loading...
+		{{/if}}
+</template>
+
+<template name="manifestData">
+    <tr>
+        <td></td>
+        <td>{{prefix}}</td>
+        <td>{{fullName}}</td>
+        <td>{{birthDateString}}</td>
+        <td class="status">{{#if showDelete}}<button type="button" class="btn btn-danger btn-sm deleteManifest" name="deleteManifest"><span class="glyphicon glyphicon-remove"></span></button>{{/if}}</td>
+    </tr>
+</template>
+<template name="formAddPassengers">
+	<div class="collapse" id="formAddPassengers">
+		<form id="frmAddRoute" class="form-group bs-callout bs-callout-success">
+		 	<div class="form-group">
+				<label for=prefix>Prefix</label>
+				<select  class="form-control" name="prefix" id="prefix">
+					<option value="undefined">Please insert prefix</option>
+					<option value="Mr">Mr</option>
+					<option value="Mrs">Mrs</option>
+					<option value="Miss">Miss</option>
+					<option value="Child">Child</option>
+				</select>
+			</div>	
+		 	<div class="form-group">
+				<label for="fname">Full Name</label>
+				<input type="text" class="form-control" placeholder="Full Name" id="fname" name="fname">
+			</div>
+		 	<div class="form-group">
+				<label for="flightDate">Birth Date</label>
+				<div class="form-group">
+					<div class='input-group date' id='birthDate'>
+						<input type='text' placeholder="DD/MM/YYYY"  class="form-control" name="birthDate"/>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-group">
+					<input type="reset" class="btn btn-default" id="clearForm" value="Cancel" data-toggle="collapse" data-target="#formAddPassengers" aria-expanded="false" aria-controls="formAddPassengers">
+					<input type="submit" class="btn btn-default" value="Add Passengers">
+				</div>
+			</div>
+		</form>  
+	</div>	
+</template>
+<template name="closeModal">
+<!-- Modal -->
+<div class="modal fade" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="DeleteBooking">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       	<h4 class="modal-title" id="myModalLabel">{{#if isRefund}}Cancel{{else}}Close{{/if}} Transaction #{{bookingCode}}</h4>
+      </div>
+      <div class="modal-body">
+       	Are you sure wan't to {{#if isPaid}}{{#if isRefund}}<b>cancel transaction</b>{{else}}<b>close transaction</b>{{/if}} with{{else}}{{#if isCanceled}}<b>cancel</b>{{else}}<b>capture credit card</b> with{{/if}}{{/if}} booking code #{{bookingCode}} ?
+      </div>
+      <div class="modal-footer">
+      	{{#if isTransfered}}
+      		{{#if isRefund}}
+      			<button type="button" class="btn btn-danger refundTransaction" id="refundTransaction" data-dismiss="modal" data-target="#closeModal">Refund Payment</button>
+        	{{else}}
+        		<button type="button" class="btn btn-primary closeTransaction" id="closeTransfer" data-dismiss="modal" data-target="#closeModal">Close Transaction</button>
+        	{{/if}}
+        {{else}}
+        	{{#if isCanceled}}
+        		<button type="button" class="btn btn-danger" id="cancelCreditCard" data-dismiss="modal" data-target="#closeModal">Cancel Credit Card Payment</button>	
+        	{{else}}
+        		{{#if isRefund}}
+        			<button type="button" class="btn btn-danger refundTransaction" id="refundTransaction" data-dismiss="modal" data-target="#closeModal">Refund Payment</button>
+        		{{else}}
+	        		{{#if isPaid}}
+	        			<button type="button" class="btn btn-primary closeTransaction" id="closeTransaction" data-dismiss="modal" data-target="#closeModal">Close Transaction</button>
+	        		{{else}}
+	        			<button type="button" class="btn btn-primary" id="closeCreditCard" data-dismiss="modal" data-target="#closeModal">Capture Credit Card Payment</button>
+	        		{{/if}}
+        		{{/if}}
+        	{{/if}}
+        {{/if}}
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-target="#deleteModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+<template name="deleteModal">
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete Booking #{{bookingCode}}</h4>
+      </div>
+      <div class="modal-body">
+       	Are you sure wan't to delete booking code #{{bookingCode}} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger deleteBooking" data-dismiss="modal" data-target="#deleteModal">Delete Booking</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-target="#deleteModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+<template name="memberModal">
+<!-- Modal -->
+<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Member List</h4>
+      </div>
+      <div class="modal-body">
+       	<div class="bs-callout bs-callout-success">
+       		<form name="searchForm" class="form-group" >
+       		    <div class="form-group">
+	            	<label for="keywords">Search</label>
+	               	  <div class="input-group">
+					      <input type="text" class="form-control" placeholder="Search for...">
+					      <span class="input-group-btn">
+					        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Go&nbsp;</button>
+					      </span>
+					  </div><!-- /input-group -->
+	            </div>
+	       </form>
+	       <div class="clear-fix"></div>
+		 	<div class="table-responsive">  
+		          <table class="table table-hover" id="routes">
+		            <thead>
+		              <tr>
+		                <th>Email</th>
+		                <th>Full Name</th>
+		                <th>Phone #</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		            	{{#each memberClientList}}
+		               	 <tr>
+				            <td>{{fullname}}</td>
+				            <td>{{emails}}</td>
+				            <td>{{mobileNumber}}</td>
+				         </tr>
+		                {{/each}}
+		                  <tr>
+			                <th></th>
+			                <th></th>
+			                <th></th>
+			              </tr>
+		            </tbody>
+		          </table>
+		          </div>
+		</div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+<template name="paymentModal">
+<!-- Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Payment</h4>
+      </div>
+      <div class="modal-body">
+      		    <div class="form-group">
+					<div class="form-group">
+						<input type="button" id="ccButton" value="Credit Card Payment" class="btn btn-info collapseButton" data-toggle="collapse" data-target="#formCCPayment" aria-expanded="false" aria-controls="formCCPayment">
+						<input type="button" id="trfButton" value="Bank Transfer Payment" class="btn btn-info collapseButton" data-toggle="collapse" data-target="#formTransferPayment" aria-expanded="false" aria-controls="formTransferPayment">
+					</div>
+				</div>
+				{{> formTransferPayment}}
+				{{> formCCPayment}}
+	   </div>	
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>

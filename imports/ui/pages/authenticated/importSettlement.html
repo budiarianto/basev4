@@ -1,0 +1,71 @@
+<template name="importSettlement">
+ 	<h3 class="text-thin text-din">Import Settlement</h3>
+    	<form id="uploadForm">
+		  <input type="file" accept=".csv" style="display: none;">
+		   <input type="text" accept=".csv" style="display: none;">
+	    </form>
+	  <h4 class="text-thin text-din">Settlement imported data</h4>
+	  <h4 class="text-thin text-din fileName"></h4>
+	  <div class="clearfix"></div>
+	            {{> toolbarImport}}
+	  <div class="clearfix"></div>
+	  <div class="gap-bottom-small"></div>
+	  <div class="table-responsive">          
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Order No</th>
+                <th>CC Number</th>
+                <th>Transaction Date</th>
+                <th>Settlement Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Import data will be placed here -->
+            </tbody>
+            <div class="clearfix"></div>
+          </table>
+        </div>
+         <div class="clearfix"></div>
+          {{> toolbarImport}}
+</template>
+
+<template name="toolbarImport">
+    <center>
+      <button type="button" class="btn btn-warning" id="btnFile">
+      	<div class="form-inline hidden-xs"><span class="glyphicon glyphicon-open-file form-inline"></span>&nbsp; Choose file to import</div>
+      	<div class="visible-xs"><span class="glyphicon glyphicon-open-file form-inline"></span></div>
+      </button>
+      <button type="button" class="btn btn-success btn-loading" id="btnRetrieve">
+      <div class="hidden-xs"><span class="glyphicon glyphicon-transfer form-inline"></span>&nbsp; Retrieve data</div>
+        
+       <div class="spinner">
+         <div class="bounce1"></div>
+         <div class="bounce2"></div>
+         <div class="bounce3"></div>
+        </div>
+        <div class="visible-xs"><span class="glyphicon glyphicon-transfer form-inline"></span></div>
+      </button>
+      <button type="button" class="btn btn-primary btn-loading" id="btnImport">
+      <div class="hidden-xs"><span class="glyphicon glyphicon-floppy-saved form-inline"></span>&nbsp; Import data</div>
+       <div class="spinner">
+         <div class="bounce1"></div>
+         <div class="bounce2"></div>
+         <div class="bounce3"></div>
+        </div>
+        <div class="visible-xs"><span class="glyphicon glyphicon-floppy-saved form-inline"></span></div>
+      </button>
+       <button type="button" class="btn btn-danger btn-loading" id="btnClear">
+       	<div class="form-inline hidden-xs"><span class="glyphicon glyphicon-trash form-inline"></span>&nbsp;Clear data</div>
+        <div class="spinner">
+         <div class="bounce1"></div>
+         <div class="bounce2"></div>
+         <div class="bounce3"></div>
+        </div>
+        <div class="visible-xs"><span class="glyphicon glyphicon-trash form-inline"></span></div>
+      </button>
+    </center>
+</template>

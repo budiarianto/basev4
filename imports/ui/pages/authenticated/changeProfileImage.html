@@ -1,0 +1,28 @@
+<template name="changeProfileImage">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="img-container">
+            <img id="image" src="/images/default-user.png" alt="Picture" width="100%" data-aspect-ratio="1/1">
+          </div>
+          <div class="cropper-loading hidden">
+            {{> loading }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="crop-acts">
+            <label class="btn btn-default btn-upload" for="inputImageLogo">
+              <input type="file" class="sr-only" id="inputImageLogo" name="file" accept="image/*"> Pilih Gambar Profile</label>
+            <button type="button" class="btn btn-default btn-cancel cancelChangeProfileImage">Cancel</button>
+            <button type="button" class="btn btn-default btn-rotate" data-method="rotate" data-option="90">Putar</button>
+            <button type="button" class="btn btn-default btn-crop" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 320 }">Unggah</button>
+            <button type="button" class="btn btn-default btn-none btn-disable" data-method="disable">Disable</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
